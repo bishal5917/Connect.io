@@ -25,16 +25,26 @@ class MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Card(
-                color: Color.fromARGB(255, 178, 182, 182),
+                color: Color.fromARGB(255, 252, 252, 252),
                 child: Container(child: Message()
-                    // width: 100,
                     ),
                 elevation: 5,
               ),
               Card(
-                color: Color.fromARGB(255, 178, 182, 182),
+                color: Color.fromARGB(255, 252, 252, 252),
                 child: Container(child: Message()
-                    // width: 100,
+                    ),
+                elevation: 5,
+              ),
+                         Card(
+                color: Color.fromARGB(255, 252, 252, 252),
+                child: Container(child: Message()
+                    ),
+                elevation: 5,
+              ),
+                         Card(
+                color: Color.fromARGB(255, 252, 252, 252),
+                child: Container(child: Message()
                     ),
                 elevation: 5,
               ),

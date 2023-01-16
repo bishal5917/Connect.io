@@ -1,4 +1,4 @@
-import 'package:chat_app/Screens/Message.dart';
+import 'package:chat_app/Screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,41 +17,9 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Chat App',
-      home: Scaffold(
-        appBar: AppBar(),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Card(
-                color: Color.fromARGB(255, 252, 252, 252),
-                child: Container(child: Message()
-                    ),
-                elevation: 5,
-              ),
-              Card(
-                color: Color.fromARGB(255, 252, 252, 252),
-                child: Container(child: Message()
-                    ),
-                elevation: 5,
-              ),
-                         Card(
-                color: Color.fromARGB(255, 252, 252, 252),
-                child: Container(child: Message()
-                    ),
-                elevation: 5,
-              ),
-                         Card(
-                color: Color.fromARGB(255, 252, 252, 252),
-                child: Container(child: Message()
-                    ),
-                elevation: 5,
-              ),
-            ],
-          ),
-        ),
-      ),
+      home: HomeScreen(),
     );
   }
 }

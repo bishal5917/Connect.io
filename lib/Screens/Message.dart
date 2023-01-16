@@ -11,31 +11,27 @@ class Message extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(5),
-      margin: EdgeInsets.all(10),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       child: Row(
         children: [
-          CircleAvatar(
-            backgroundImage:
-                NetworkImage('https://picsum.photos/id/237/200/300'),
-            radius: 30,
-          ),
-          SizedBox(
-            width: 30,
-          ),
           Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  "Carolyn",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                Text("Tap to open chat")
-              ],
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 2,
+                color: Colors.blueAccent
+              ),
+              shape: BoxShape.circle, boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 5)
+            ]),
+            child: CircleAvatar(
+              backgroundImage:
+                  NetworkImage('https://picsum.photos/id/237/200/300'),
+              radius: 30,
             ),
-          )
+          ),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:chat_app/Screens/Chat.dart';
 import 'package:chat_app/Screens/HomeScreen.dart';
+import 'package:chat_app/Screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,11 +17,12 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   @override
+  final user = true;
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Chat App',
-        home: HomeScreen(),
+        home: !user ? HomeScreen() : LoginScreen(),
         routes: {
           '/open_chat': (context) => Chat(),
         });

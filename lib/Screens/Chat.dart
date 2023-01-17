@@ -24,7 +24,30 @@ class Chat extends StatelessWidget {
             ),
           ),
           Container(
-            child: Text("Type a Message !!! "),
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            height: 70,
+            color: Colors.white,
+            child: Row(
+              children: [
+                IconButton(
+                    color: Colors.teal,
+                    onPressed: () {},
+                    iconSize: 25,
+                    icon: Icon(Icons.photo)),
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration.collapsed(
+                        hintText: "Type a message ..."),
+                    textCapitalization: TextCapitalization.sentences,
+                  ),
+                ),
+                IconButton(
+                    color: Colors.teal,
+                    onPressed: () {},
+                    iconSize: 25,
+                    icon: Icon(Icons.send))
+              ],
+            ),
           )
         ],
       ),

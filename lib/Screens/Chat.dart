@@ -1,3 +1,4 @@
+import 'package:chat_app/Screens/chat_sentences.dart';
 import 'package:flutter/material.dart';
 
 class Chat extends StatelessWidget {
@@ -8,6 +9,24 @@ class Chat extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Mike Alpha"),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Column(
+              children: [
+                Chat_Sentences(),
+                Chat_Sentences(),
+                Chat_Sentences(),
+                Chat_Sentences(),
+                Chat_Sentences()
+              ],
+            ),
+          ),
+          Container(
+            child: Text("Type a Message !!! "),
+          )
+        ],
       ),
     );
   }

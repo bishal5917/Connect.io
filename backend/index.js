@@ -47,11 +47,11 @@ app.use(morgan("dev"))
 
 
 //import for routes
-// const userroute = require('./routes/users')
+const userroute = require('./routes/users')
 
 
 //routes for router
-// app.use('/api', userroute)
+app.use('/api', userroute)
 
 
 const server = app.listen('5000', () => {

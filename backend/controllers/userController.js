@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const errorResponse = require('../utils/errorResponse')
 
 exports.regUser = async (req, res, next) => {
     const { username, email, password } = req.body
@@ -13,10 +14,7 @@ exports.regUser = async (req, res, next) => {
             user
         })
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message
-        })
+        return next(error)
     }
 }
 
@@ -24,17 +22,17 @@ exports.logUser = async (req, res, next) => {
     const { email, password } = req.body
 
     if (!email || !password) {
-        res.status(400).json({ success: false, error: "Please provide email and password" })
+        return next(new errorResponse("Please Enter email and password !",400))
     }
 
     try {
         const user = await User.findOne({ email }).select("+password")
         if (!user) {
-            res.status(500).json({ success: false, message: "Invalid Credentials !!!" })
+            return next(new errorResponse("Invalid email or password !",404))
         }
         const isMatch = await user.comparePassword(password)
         if (!isMatch) {
-            res.status(500).json({ success: false, message: "Wrong Password !!!" })
+            return next(new errorResponse("Invalid Password",403))
         }
 
         res.status(200).json({

@@ -47,8 +47,10 @@ app.use(morgan("dev"))
 
 
 //import for routes
-const userroute = require('./routes/users')
+const userroute = require('./routes/users');
+const errorHandler = require("./middleware/error");
 
+app.use(errorHandler)
 
 //routes for router
 app.use('/api', userroute)

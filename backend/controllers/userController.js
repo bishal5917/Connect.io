@@ -47,8 +47,6 @@ const sendToken = (user, statusCode, res) => {
     res.status(statusCode).json({ success: true, token, user })
 
 }
-//getting details of a user
-
 
 //sending friend request to another user
 exports.sendFriendRequest = async (req, res, next) => {
@@ -107,5 +105,25 @@ exports.acceptRequest = async (req, res, next) => {
     }
     else {
         return next(new errorResponse("You can't accept your own !", 403))
+    }
+}
+
+exports.getMyDetails = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.userId)
+        const { password, ...others } = user._doc;
+        res.status(200).json(others);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
+
+exports.getDetails = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.userId)
+        const { password, ...others } = user._doc;
+        res.status(200).json(others);
+    } catch (err) {
+        res.status(500).json(err);
     }
 }

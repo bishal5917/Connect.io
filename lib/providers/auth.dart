@@ -8,6 +8,7 @@ import '../config.dart';
 class Auth with ChangeNotifier {
   String token = "";
   String userId = "";
+  String errorMessage = "";
   // late Timer authTimer;
 
   Future<void> Login(String email, String password) async {
@@ -17,6 +18,9 @@ class Auth with ChangeNotifier {
     final jsonResp = await json.decode(response.body);
     token = await jsonResp['token'];
     userId = await jsonResp["user"]["_id"];
+    if (token.isEmpty) {
+      errorMessage = "Login Failed , Please try again later!";
+    }
     // expiryDate = await jsonResp["expiresIn"];
     // autologout();
     notifyListeners();

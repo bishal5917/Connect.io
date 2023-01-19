@@ -47,3 +47,35 @@ const sendToken = (user, statusCode, res) => {
     res.status(statusCode).json({ success: true, token, user })
 
 }
+//getting details of a user
+
+
+//sending friend request to another user
+exports.sendFriendRequest = async (req, res, next) => {
+    if (req.body.userId !== req.params.id) {
+        try {
+            const userToRequest = await User.findById(req.params.id)
+            const currentUser = await User.findById(req.body.userId)
+            if (!userToRequest.requests.includes(req.body.userId)) {
+                if (!currentUser.friends.includes(req.params.id)) {
+                    await userToRequest.updateOne({ $push: { requests: req.body.userId } })
+                    res.status(200).send("Request Sent")
+                }
+                else {
+                    return next(new errorResponse("Already a Friend", 403))
+                }
+            }
+            else {
+                return next(new errorResponse("Already Requested", 403))
+            }
+
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    }
+    else {
+        return next(new errorResponse("You can't follow yourself !", 403))
+    }
+}
+
+//accepting friend request of another user

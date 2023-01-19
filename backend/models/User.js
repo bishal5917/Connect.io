@@ -33,6 +33,24 @@ const userSchema = new mongoose.Schema({
             default: ""
         },
     },
+    friends: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
+    conversations: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
+    requests: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
     createdAt: {
         type: Date,
         default: Date.now,

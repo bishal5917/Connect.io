@@ -1,3 +1,4 @@
+import 'package:chat_app/providers/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget build(BuildContext context) {
-    // final authproviders = Provider.of<Auth>(context);
+    final authproviders = Provider.of<Auth>(context);
 
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 10, 67, 108),
@@ -113,8 +114,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 InkWell(
                   onTap: () {
                     saveForm();
-                    // authproviders.Login(loginDetail['email'] as String,
-                    //     loginDetail['pass'] as String);
+                    authproviders.Login(loginDetail['email'] as String,
+                        loginDetail['pass'] as String);
                   },
                   child: Container(
                     padding: EdgeInsets.all(10),

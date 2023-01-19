@@ -127,3 +127,12 @@ exports.getDetails = async (req, res, next) => {
         res.status(500).json(err);
     }
 }
+
+exports.searchUser = async (req, res, next) => {
+    try {
+        const response = await User.findOne({ email: req.query.email })
+        res.status(200).json(response)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}

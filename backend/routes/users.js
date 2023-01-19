@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { regUser, logUser, sendFriendRequest, acceptRequest, getDetails, getMyDetails } = require('../controllers/userController')
+const { regUser, logUser, sendFriendRequest, acceptRequest, getDetails, getMyDetails, searchUser } = require('../controllers/userController')
 const { protect } = require('../middleware/auth')
 const User = require('../models/User')
 
@@ -19,7 +19,8 @@ router.route('/users/login').post(logUser)
 router.route('/users/add/:id').put(sendFriendRequest)
 router.route('/users/accept').put(acceptRequest)
 router.route('/users/getuser').get(getDetails)
-router.route('/users/getmydetails/:userId').get(protect,getMyDetails)
+router.route('/users/getmydetails/:userId').get(protect, getMyDetails)
+router.route('/users/search').get(searchUser)
 
 
 //api for sending email

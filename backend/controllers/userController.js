@@ -59,6 +59,7 @@ exports.sendFriendRequest = async (req, res, next) => {
             if (!userToRequest.requests.includes(req.body.userId)) {
                 if (!currentUser.friends.includes(req.params.id)) {
                     await userToRequest.updateOne({ $push: { requests: req.body.userId } })
+                    await currentUser.updateOne({ $push: { requested: req.params.id } })
                     res.status(200).send("Request Sent")
                 }
                 else {
@@ -78,4 +79,33 @@ exports.sendFriendRequest = async (req, res, next) => {
     }
 }
 
-//accepting friend request of another user
+//accepting friend requests
+exports.acceptRequest = async (req, res, next) => {
+    if (req.body.userId !== req.body.reqId) {
+        try {
+            const requestFrom = await User.findById(req.body.reqId)
+            const currentUser = await User.findById(req.body.userId)
+            if (currentUser.requests.includes(req.body.reqId)) {
+                if (!currentUser.friends.includes(req.body.reqId)) {
+                    await currentUser.updateOne({ $push: { friends: req.body.reqId } })
+                    await requestFrom.updateOne({ $push: { friends: req.body.userId } })
+                    await currentUser.updateOne({ $pull: { requests: req.body.reqId } })
+                    await requestFrom.updateOne({ $pull: { requested: req.body.userId } })
+                    res.status(200).send("Request Accepted !")
+                }
+                else {
+                    return next(new errorResponse("Already a Friend", 403))
+                }
+            }
+            else {
+                return next(new errorResponse("Not Found in requested list !", 404))
+            }
+
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    }
+    else {
+        return next(new errorResponse("You can't accept your own !", 403))
+    }
+}

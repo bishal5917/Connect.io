@@ -39,13 +39,13 @@ const userSchema = new mongoose.Schema({
             ref: "User"
         }
     ],
-    conversations: [
+    requests: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
         }
     ],
-    requests: [
+    requested: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"

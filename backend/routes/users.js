@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { regUser, logUser, sendFriendRequest } = require('../controllers/userController')
+const { regUser, logUser, sendFriendRequest, acceptRequest } = require('../controllers/userController')
 const User = require('../models/User')
 
 // var transporter = nodemailer.createTransport({
@@ -16,6 +16,7 @@ const User = require('../models/User')
 router.route('/users/register').post(regUser)
 router.route('/users/login').post(logUser)
 router.route('/users/add/:id').put(sendFriendRequest)
+router.route('/users/accept').put(acceptRequest)
 
 
 //api for sending email

@@ -9,7 +9,7 @@ class Auth with ChangeNotifier {
   String token = "";
   String userId = "";
   String errorMessage = "";
-  // late Timer authTimer;
+  late Timer authTimer;
 
   Future<void> Login(String email, String password) async {
     const url = Config.loginUrl;
@@ -18,9 +18,6 @@ class Auth with ChangeNotifier {
     final jsonResp = await json.decode(response.body);
     token = await jsonResp['token'];
     userId = await jsonResp["user"]["_id"];
-    if (token.isEmpty) {
-      errorMessage = "Login Failed , Please try again later!";
-    }
     // expiryDate = await jsonResp["expiresIn"];
     // autologout();
     notifyListeners();
@@ -29,21 +26,21 @@ class Auth with ChangeNotifier {
     prefs.setString("userData", userData);
   }
 
-  Future<bool> autoLogin() async {
+  Future<void> autoLogin() async {
     final prefs = await SharedPreferences.getInstance();
     if (!prefs.containsKey('userData')) {
-      return false;
+      return;
     }
-    final extractedUserData =
-        prefs.getString('userData') as Map<String, String>;
-    token = extractedUserData['token'] as String;
-    userId = extractedUserData["userId"] as String;
+    final extractedUserData = prefs.getString('userData');
+    final details = await json.decode(extractedUserData);
+    token = details['token'] as String;
+    userId = details["userId"] as String;
     notifyListeners();
     // autologout();
-    return true;
   }
 
   bool get checkUser {
+    autoLogin();
     if (token.isNotEmpty) {
       return true;
     }

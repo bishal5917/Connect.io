@@ -120,7 +120,7 @@ exports.getMyDetails = async (req, res, next) => {
 
 exports.getDetails = async (req, res, next) => {
     try {
-        const user = await User.findById(req.params.userId)
+        const user = await User.findById(req.params.uid)
         const { password, ...others } = user._doc;
         res.status(200).json(others);
     } catch (err) {

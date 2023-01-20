@@ -1,17 +1,30 @@
 import 'dart:ui';
-
+import 'package:provider/provider.dart';
+import 'package:chat_app/providers/conversations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class Message extends StatelessWidget {
-  final String username;
+class Message extends StatefulWidget {
+  final String userId;
   final String pic;
 
-  Message(this.username, this.pic);
+  Message(this.userId, this.pic);
 
   @override
+  State<Message> createState() => _MessageState();
+}
+
+class _MessageState extends State<Message> {
+  @override
+  void initState() {
+    Future.delayed(Duration.zero).then((value) {
+      // Provider.of<Conversations>(context, listen: false).getUserInfo(userId);
+    });
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
@@ -33,7 +46,7 @@ class Message extends StatelessWidget {
                         blurRadius: 5)
                   ]),
               child: CircleAvatar(
-                backgroundImage: NetworkImage(pic),
+                backgroundImage: NetworkImage(widget.pic),
                 radius: 36,
               ),
             ),
@@ -45,7 +58,7 @@ class Message extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(username,
+                      Text(widget.userId,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                       Text("",

@@ -14,6 +14,9 @@ class Conversation with ChangeNotifier {
 }
 
 class Conversations with ChangeNotifier {
+  String username = "";
+  late Map<String, String> imageInfo;
+
   List<Conversation> _items = [];
 
   List<Conversation> get items {
@@ -32,6 +35,14 @@ class Conversations with ChangeNotifier {
           members: element['members']));
     });
     _items = loadedConversations;
+    notifyListeners();
+  }
+
+  Future<void> getUserInfo(String friendId) async {
+    String url = "${Config.getUserUrl}/$friendId";
+    final response = await http.get(url);
+    final jsonResp = await json.decode(response.body);
+    username = jsonResp['username'];
     notifyListeners();
   }
 

@@ -18,7 +18,7 @@ router.route('/users/register').post(regUser)
 router.route('/users/login').post(logUser)
 router.route('/users/add/:id').put(sendFriendRequest)
 router.route('/users/accept').put(acceptRequest)
-router.route('/users/getuser').get(getDetails)
+router.route('/users/getuser/:uid').get(getDetails)
 router.route('/users/getmydetails/:userId').get(protect, getMyDetails)
 router.route('/users/search').get(searchUser)
 

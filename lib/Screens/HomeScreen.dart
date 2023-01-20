@@ -1,11 +1,31 @@
 import 'package:chat_app/Screens/Message.dart';
+import 'package:chat_app/providers/auth.dart';
+import 'package:chat_app/providers/conversations.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    Future.delayed(Duration.zero).then((value) {
+      final authproviders = Provider.of<Auth>(context, listen: false);
+      String loggedUserId = authproviders.userId;
+      Provider.of<Conversations>(context, listen: false)
+          .getConvos(loggedUserId);
+    });
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
+    final convProvider = Provider.of<Conversations>(context);
+    print(convProvider.items);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -23,7 +43,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         body: Column(
-          children: [Message(), Message(), Message()],
+          children: [Message(), Message()],
         ));
   }
 }

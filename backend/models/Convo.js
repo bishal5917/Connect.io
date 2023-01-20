@@ -5,6 +5,10 @@ const ConvoSchema = new mongoose.Schema({
         type: Array,
         required: true
     },
+    nextId: {
+        type: String,
+        default: ""
+    }
 }, { timestamps: true }  //timestamps will  be given on creation and updation automatically
 );
 

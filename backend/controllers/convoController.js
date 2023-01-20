@@ -1,5 +1,6 @@
 
 const Convo = require('../models/Convo')
+const User = require('../models/User')
 const errorResponse = require('../utils/errorResponse')
 
 //saving new conversations
@@ -21,6 +22,13 @@ exports.getConversation = async (req, res, next) => {
         const findConversation = await Convo.find({
             members: { $in: [req.params.uid] }
         })
+        findConversation.forEach(myFunc)
+        function myFunc(element) {
+            let copyarray = element.members
+            copyarray.pull(req.params.uid)
+            element["nextId"] = copyarray[0]
+            copyarray.push(req.params.uid)
+        }
         res.status(200).json(findConversation)
     } catch (error) {
         res.status(500).json(error)

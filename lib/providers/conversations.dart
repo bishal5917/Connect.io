@@ -7,9 +7,10 @@ import 'dart:io';
 
 class Conversation with ChangeNotifier {
   final String id;
+  final String nextId;
   final List<dynamic> members;
 
-  Conversation({required this.id, required this.members});
+  Conversation({required this.id, required this.nextId, required this.members});
 }
 
 class Conversations with ChangeNotifier {
@@ -25,8 +26,10 @@ class Conversations with ChangeNotifier {
     final jsonResp = await json.decode(response.body);
     final List<Conversation> loadedConversations = [];
     jsonResp.forEach((element) {
-      loadedConversations
-          .add(Conversation(id: element['_id'], members: element['members']));
+      loadedConversations.add(Conversation(
+          id: element['_id'],
+          nextId: element['nextId'],
+          members: element['members']));
     });
     _items = loadedConversations;
     notifyListeners();

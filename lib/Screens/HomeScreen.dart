@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
             itemCount: convList.length,
             itemBuilder: (BuildContext context, int index) {
               return Message(
-                  convList[index].id, "https://picsum.photos/id/237/200/300");
+                  convList[index].nextId, "https://picsum.photos/id/237/200/300");
             }));
   }
 }

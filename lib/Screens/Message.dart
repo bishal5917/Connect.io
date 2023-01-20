@@ -45,7 +45,7 @@ class Message extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("My name",
+                      Text(username,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                       Text("",

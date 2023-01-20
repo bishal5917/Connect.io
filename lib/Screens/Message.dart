@@ -20,12 +20,16 @@ class _MessageState extends State<Message> {
   @override
   void initState() {
     Future.delayed(Duration.zero).then((value) {
-      // Provider.of<Conversations>(context, listen: false).getUserInfo(userId);
+      Provider.of<Conversations>(context, listen: false)
+          .getUserInfo(widget.userId);
     });
     super.initState();
   }
 
   Widget build(BuildContext context) {
+    final friendName = Provider.of<Conversations>(context).username;
+    final imgUrl = Provider.of<Conversations>(context).imageUrl;
+
     return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed('/open_chat');
@@ -58,7 +62,7 @@ class _MessageState extends State<Message> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(widget.userId,
+                      Text(friendName,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                       Text("",

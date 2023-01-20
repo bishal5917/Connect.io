@@ -15,7 +15,7 @@ class Conversation with ChangeNotifier {
 
 class Conversations with ChangeNotifier {
   String username = "";
-  late Map<String, String> imageInfo;
+  String imageUrl = "";
 
   List<Conversation> _items = [];
 
@@ -43,6 +43,7 @@ class Conversations with ChangeNotifier {
     final response = await http.get(url);
     final jsonResp = await json.decode(response.body);
     username = jsonResp['username'];
+    imageUrl = jsonResp['avatar']['url'];
     notifyListeners();
   }
 

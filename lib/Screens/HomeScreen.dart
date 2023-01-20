@@ -25,7 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget build(BuildContext context) {
     final convProvider = Provider.of<Conversations>(context);
-    print(convProvider.items);
+    final convList = convProvider.items;
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -42,8 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(onPressed: (() {}), icon: Icon(Icons.search))
           ],
         ),
-        body: Column(
-          children: [Message(), Message()],
-        ));
+        body: ListView.builder(
+            itemCount: convList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Message(
+                  convList[index].id, "https://picsum.photos/id/237/200/300");
+            }));
   }
 }

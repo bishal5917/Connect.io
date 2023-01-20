@@ -6,7 +6,10 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class Message extends StatelessWidget {
-  const Message({super.key});
+  final String username;
+  final String pic;
+
+  Message(this.username, this.pic);
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +33,7 @@ class Message extends StatelessWidget {
                         blurRadius: 5)
                   ]),
               child: CircleAvatar(
-                backgroundImage:
-                    NetworkImage('https://picsum.photos/id/237/200/300'),
+                backgroundImage: NetworkImage(pic),
                 radius: 36,
               ),
             ),
@@ -43,17 +45,17 @@ class Message extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Levi Ackerman",
+                      Text("My name",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text("12:30 PM",
+                      Text("",
                           style: TextStyle(fontSize: 10, color: Colors.black54))
                     ],
                   ),
                   Container(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "Bye See You",
+                      "Tap to open chat ...",
                       style: TextStyle(fontSize: 15, color: Colors.black54),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,

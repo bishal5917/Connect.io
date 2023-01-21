@@ -36,7 +36,7 @@ class _MessageState extends State<Message> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed('/open_chat');
+        Navigator.of(context).pushNamed('/open_chat',arguments: {convId:conversat});
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),

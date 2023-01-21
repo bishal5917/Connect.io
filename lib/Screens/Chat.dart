@@ -1,10 +1,24 @@
 import 'package:chat_app/Screens/chat_sentences.dart';
+import 'package:chat_app/providers/messages.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class Chat extends StatelessWidget {
+class Chat extends StatefulWidget {
   const Chat({super.key});
 
   @override
+  State<Chat> createState() => _ChatState();
+}
+
+class _ChatState extends State<Chat> {
+  @override
+  void initState() {
+    Future.delayed(Duration.zero).then((value) {
+      // Provider.of<Messages>(context, listen: false).fetchMessages(convId);
+    });
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

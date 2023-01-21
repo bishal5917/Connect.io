@@ -44,7 +44,11 @@ class Chat_Sentences extends StatelessWidget {
                                     spreadRadius: 2,
                                     blurRadius: 5)
                               ]),
-                          child: Text(text)),
+                          child: Center(
+                              child: Text(
+                            text,
+                            textAlign: TextAlign.center,
+                          ))),
                       Container(
                           alignment: Alignment.topLeft,
                           child: Text(date,
@@ -77,7 +81,12 @@ class Chat_Sentences extends StatelessWidget {
                               spreadRadius: 2,
                               blurRadius: 5)
                         ]),
-                    child: Text(text)),
+                    child: Center(
+                      child: Text(
+                        text,
+                        textAlign: TextAlign.center,
+                      ),
+                    )),
                 Container(
                     child: Text(date,
                         style: TextStyle(fontSize: 10, color: Colors.black54)))

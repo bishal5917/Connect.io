@@ -29,7 +29,7 @@ class _ChatState extends State<Chat> {
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Mike Alpha"),
+        title: Text(argso['fname'] as String),
       ),
       body: Column(
         children: [
@@ -38,8 +38,11 @@ class _ChatState extends State<Chat> {
                 itemCount: messList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Chat_Sentences(
+                    argso['fid'] as String,
+                    argso['fname'] as String,
                     messList[index].text,
                     messList[index].date,
+                    messList[index].senderId,
                   );
                 }),
           ),

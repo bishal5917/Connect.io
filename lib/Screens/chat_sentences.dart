@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Chat_Sentences extends StatelessWidget {
-  const Chat_Sentences({super.key});
+  final String fid;
+  final String fname;
+  final String text;
+  final String date;
+
+  Chat_Sentences(this.text, this.date);
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +36,10 @@ class Chat_Sentences extends StatelessWidget {
                               spreadRadius: 2,
                               blurRadius: 5)
                         ]),
-                    child: Text("Hi When are we gonna meet ?")),
+                    child: Text(text)),
                 Container(
                     alignment: Alignment.topLeft,
-                    child: Text("12:30 PM",
+                    child: Text(date,
                         style: TextStyle(fontSize: 10, color: Colors.black54)))
               ],
             ),

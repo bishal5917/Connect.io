@@ -14,8 +14,10 @@ class _ChatState extends State<Chat> {
   @override
   void initState() {
     Future.delayed(Duration.zero).then((value) {
-      final args = ModalRoute.of(context)!.settings.arguments as String;
-      Provider.of<Messages>(context, listen: false).fetchMessages(args);
+      final args =
+          ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+      Provider.of<Messages>(context, listen: false)
+          .fetchMessages(args["cid"] as String);
     });
     super.initState();
   }
@@ -23,7 +25,8 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     final messProvider = Provider.of<Messages>(context);
     final messList = messProvider.items;
-
+    final argso =
+        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     return Scaffold(
       appBar: AppBar(
         title: Text("Mike Alpha"),
@@ -34,7 +37,10 @@ class _ChatState extends State<Chat> {
             child: ListView.builder(
                 itemCount: messList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Chat_Sentences();
+                  return Chat_Sentences(
+                    messList[index].text,
+                    messList[index].date,
+                  );
                 }),
           ),
           Container(

@@ -5,12 +5,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../config.dart';
+import 'dart:io';
 
 class Message extends StatefulWidget {
   final String userId;
-  final String pic;
+  final String username;
+  final String conversationId;
+  final Map<String, dynamic> fr_avatar;
 
-  Message(this.userId, this.pic);
+  Message(this.userId, this.username, this.conversationId, this.fr_avatar);
 
   @override
   State<Message> createState() => _MessageState();
@@ -18,18 +25,15 @@ class Message extends StatefulWidget {
 
 class _MessageState extends State<Message> {
   @override
-  void initState() {
-    Future.delayed(Duration.zero).then((value) {
-      Provider.of<Conversations>(context, listen: false)
-          .getUserInfo(widget.userId);
-    });
-    super.initState();
-  }
+  // void initState() {
+  //   Future.delayed(Duration.zero).then((value) {
+  //     Provider.of<Conversations>(context, listen: false)
+  //         .getUserInfo(widget.userId);
+  //   });
+  //   super.initState();
+  // }
 
   Widget build(BuildContext context) {
-    final friendName = Provider.of<Conversations>(context).username;
-    final imgUrl = Provider.of<Conversations>(context).imageUrl;
-
     return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed('/open_chat');
@@ -50,7 +54,8 @@ class _MessageState extends State<Message> {
                         blurRadius: 5)
                   ]),
               child: CircleAvatar(
-                backgroundImage: NetworkImage(widget.pic),
+                backgroundImage: NetworkImage(
+                    "https://c4.wallpaperflare.com/wallpaper/695/974/527/anime-attack-on-titan-attack-on-titan-levi-ackerman-shingeki-no-kyojin-hd-wallpaper-preview.jpg"),
                 radius: 36,
               ),
             ),
@@ -62,7 +67,7 @@ class _MessageState extends State<Message> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(friendName,
+                      Text(widget.username,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                       Text("",

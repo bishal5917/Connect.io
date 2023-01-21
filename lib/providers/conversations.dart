@@ -7,16 +7,18 @@ import 'dart:io';
 
 class Conversation with ChangeNotifier {
   final String id;
-  final String nextId;
+  final String friendname;
   final List<dynamic> members;
+  final Map<String, dynamic> fr_avatar;
 
-  Conversation({required this.id, required this.nextId, required this.members});
+  Conversation(
+      {required this.id,
+      required this.friendname,
+      required this.members,
+      required this.fr_avatar});
 }
 
 class Conversations with ChangeNotifier {
-  String username = "";
-  String imageUrl = "";
-
   List<Conversation> _items = [];
 
   List<Conversation> get items {
@@ -31,19 +33,11 @@ class Conversations with ChangeNotifier {
     jsonResp.forEach((element) {
       loadedConversations.add(Conversation(
           id: element['_id'],
-          nextId: element['nextId'],
-          members: element['members']));
+          friendname: element['friendname'],
+          members: element['members'],
+          fr_avatar: element['fr_avatar']));
     });
     _items = loadedConversations;
-    notifyListeners();
-  }
-
-  Future<void> getUserInfo(String friendId) async {
-    String url = "${Config.getUserUrl}/$friendId";
-    final response = await http.get(url);
-    final jsonResp = await json.decode(response.body);
-    username = jsonResp['username'];
-    imageUrl = jsonResp['avatar']['url'];
     notifyListeners();
   }
 

@@ -1,4 +1,5 @@
 
+const { find } = require('../models/Convo')
 const Convo = require('../models/Convo')
 const User = require('../models/User')
 const errorResponse = require('../utils/errorResponse')
@@ -22,12 +23,19 @@ exports.getConversation = async (req, res, next) => {
         const findConversation = await Convo.find({
             members: { $in: [req.params.uid] }
         })
-        findConversation.forEach(myFunc)
-        function myFunc(element) {
+        for (const element of findConversation) {
             let copyarray = element.members
             copyarray.pull(req.params.uid)
-            element["nextId"] = copyarray[0]
-            copyarray.push(req.params.uid)
+            try {
+                const user = await User.findById(copyarray[0])
+                const { password, ...others } = user._doc;
+                element["friendname"] = others.username
+                element["fr_avatar"]["public_id"] = others.avatar.public_id
+                element["fr_avatar"]["url"] = others.avatar.url
+                copyarray.push(req.params.uid)
+            } catch (err) {
+                res.status(500).json(err);
+            }
         }
         res.status(200).json(findConversation)
     } catch (error) {

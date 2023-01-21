@@ -19,7 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
       String loggedUserId = authproviders.userId;
       Provider.of<Conversations>(context, listen: false)
           .getConvos(loggedUserId);
-      
     });
     super.initState();
   }
@@ -47,8 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
         body: ListView.builder(
             itemCount: convList.length,
             itemBuilder: (BuildContext context, int index) {
-              return Message(convList[index].nextId,
-                  "https://picsum.photos/id/237/200/300");
+              return Message(convList[index].id, convList[index].friendname,
+                  convList[index].id, convList[index].fr_avatar);
             }));
   }
 }

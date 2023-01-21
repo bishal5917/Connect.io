@@ -5,10 +5,20 @@ const ConvoSchema = new mongoose.Schema({
         type: Array,
         required: true
     },
-    nextId: {
+    friendname: {
         type: String,
         default: ""
-    }
+    },
+    fr_avatar: {
+        public_id: {
+            type: String,
+            default: ""
+        },
+        url: {
+            type: String,
+            default: ""
+        },
+    },
 }, { timestamps: true }  //timestamps will  be given on creation and updation automatically
 );
 

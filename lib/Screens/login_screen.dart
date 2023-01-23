@@ -120,7 +120,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     setState(() {
                       errorMessage = authproviders.errorMessage;
                     });
-                    print(errorMessage);
                   },
                   child: Container(
                     padding: EdgeInsets.all(10),

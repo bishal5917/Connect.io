@@ -1,4 +1,5 @@
 import 'package:chat_app/Screens/chat_sentences.dart';
+import 'package:chat_app/providers/auth.dart';
 import 'package:chat_app/providers/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,14 @@ class Chat extends StatefulWidget {
 }
 
 class _ChatState extends State<Chat> {
+  final messageController = TextEditingController();
+
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    messageController.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     Future.delayed(Duration.zero).then((value) {
@@ -24,6 +33,7 @@ class _ChatState extends State<Chat> {
 
   Widget build(BuildContext context) {
     final messProvider = Provider.of<Messages>(context);
+    final authProvider = Provider.of<Auth>(context);
     final messList = messProvider.items;
     final argso =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
@@ -59,6 +69,7 @@ class _ChatState extends State<Chat> {
                     icon: Icon(Icons.photo)),
                 Expanded(
                   child: TextField(
+                    controller: messageController,
                     decoration: InputDecoration.collapsed(
                         hintText: "Type a message ..."),
                     textCapitalization: TextCapitalization.sentences,
@@ -66,7 +77,14 @@ class _ChatState extends State<Chat> {
                 ),
                 IconButton(
                     color: Colors.teal,
-                    onPressed: () {},
+                    onPressed: () {
+                      print(argso['cid']);
+                      print(authProvider.userId);
+                      print(messageController.text);
+
+                      messProvider.sendChat(argso['cid'] as String,
+                          authProvider.userId, messageController.text);
+                    },
                     iconSize: 25,
                     icon: Icon(Icons.send))
               ],

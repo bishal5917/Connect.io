@@ -25,13 +25,6 @@ class Message extends StatefulWidget {
 
 class _MessageState extends State<Message> {
   @override
-  // void initState() {
-  //   Future.delayed(Duration.zero).then((value) {
-  //     Provider.of<Conversations>(context, listen: false)
-  //         .getUserInfo(widget.userId);
-  //   });
-  //   super.initState();
-  // }
 
   Widget build(BuildContext context) {
     return InkWell(

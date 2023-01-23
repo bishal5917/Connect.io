@@ -41,15 +41,15 @@ class Conversations with ChangeNotifier {
     notifyListeners();
   }
 
-  // Conversation findProdById(String id) {
-  //   return items.firstWhere((item) => item.id == id);
-  // }
-
-  // Future<void> addReview(num rating, String comment, String prodId) async {
-  //   String url = Config.addReviewUrl;
-  //   final response = await http.post(url,
-  //       body: json.encode(
-  //           {"rating": rating, "comment": comment, "ConversationId": prodId}));
-  //   notifyListeners();
-  // }
+  Future<void> sendChat(
+      String conversationId, String senderId, String text) async {
+    String url = Config.sendMessUrl;
+    final response = await http.post(url,
+        body: json.encode({
+          "conversationId": conversationId,
+          "senderId": senderId,
+          "text": text
+        }));
+    notifyListeners();
+  }
 }

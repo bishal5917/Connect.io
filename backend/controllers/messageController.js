@@ -19,6 +19,9 @@ exports.fetchMessages = async (req, res, next) => {
         const messages = await Message.find({
             conversationId: req.params.cid
         })
+        for (const element in messages) {
+            element.createdAt = element.createdAt
+        }
         res.status(200).json(messages)
     } catch (error) {
         res.status(500).json(error)

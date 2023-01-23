@@ -13,6 +13,15 @@ class Chat extends StatefulWidget {
 
 class _ChatState extends State<Chat> {
   final messageController = TextEditingController();
+  final ScrollController _controller = ScrollController();
+
+  void _scrollDown() {
+    _controller.animateTo(
+      _controller.position.maxScrollExtent,
+      duration: Duration(microseconds: 5),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
 
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -23,6 +32,7 @@ class _ChatState extends State<Chat> {
   @override
   void initState() {
     Future.delayed(Duration.zero).then((value) {
+      _scrollDown();
       final args =
           ModalRoute.of(context)!.settings.arguments as Map<String, String>;
       Provider.of<Messages>(context, listen: false)
@@ -45,6 +55,7 @@ class _ChatState extends State<Chat> {
         children: [
           Expanded(
             child: ListView.builder(
+                controller: _controller,
                 itemCount: messList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Chat_Sentences(
@@ -78,6 +89,7 @@ class _ChatState extends State<Chat> {
                 IconButton(
                     color: Colors.teal,
                     onPressed: () {
+                      _scrollDown();
                       messProvider.sendChat(argso['cid'] as String,
                           authProvider.userId, messageController.text);
                     },

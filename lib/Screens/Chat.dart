@@ -78,10 +78,6 @@ class _ChatState extends State<Chat> {
                 IconButton(
                     color: Colors.teal,
                     onPressed: () {
-                      print(argso['cid']);
-                      print(authProvider.userId);
-                      print(messageController.text);
-
                       messProvider.sendChat(argso['cid'] as String,
                           authProvider.userId, messageController.text);
                     },

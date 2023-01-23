@@ -44,12 +44,11 @@ class Messages with ChangeNotifier {
   Future<void> sendChat(
       String conversationId, String senderId, String text) async {
     String url = Config.sendMessUrl;
-    final response = await http.post(url,
-        body: json.encode({
-          "conversationId": conversationId,
-          "senderId": senderId,
-          "text": text
-        }));
+    final response = await http.post(url, body: {
+      "conversationId": conversationId,
+      "senderId": senderId,
+      "text": text
+    });
     notifyListeners();
   }
 }

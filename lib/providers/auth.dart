@@ -18,8 +18,6 @@ class Auth with ChangeNotifier {
     final jsonResp = await json.decode(response.body);
     token = await jsonResp['token'];
     userId = await jsonResp["user"]["_id"];
-    // expiryDate = await jsonResp["expiresIn"];
-    // autologout();
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     final userData = json.encode({"token": token, "userId": userId});
@@ -36,7 +34,6 @@ class Auth with ChangeNotifier {
     token = details['token'] as String;
     userId = details["userId"] as String;
     notifyListeners();
-    // autologout();
   }
 
   bool get checkUser {
@@ -54,20 +51,8 @@ class Auth with ChangeNotifier {
   Future<void> logout() async {
     token = "";
     userId = "";
-    // if (authTimer != null) {
-    //   authTimer.cancel();
-    // }
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('userData');
   }
-
-  // void autologout() {
-  //   if (authTimer != null) {
-  //     authTimer.cancel();
-  //   }
-  //   // expiryDate.difference(DateTime.now()).inSeconds;
-  //   authTimer = Timer(Duration(seconds: 3), logout);
-  //   notifyListeners();
-  // }
 }

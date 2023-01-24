@@ -25,22 +25,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget build(BuildContext context) {
     final convProvider = Provider.of<Conversations>(context);
+    final authP = Provider.of<Auth>(context);
     final convList = convProvider.items;
 
     return Scaffold(
         appBar: AppBar(
-          centerTitle: true,
-          leading: IconButton(
-            icon: Icon(Icons.menu),
-            color: Colors.white,
-            onPressed: () {},
-          ),
           title: Text(
-            "CHATS",
+            "CONNECT.IO",
             style: TextStyle(color: Colors.white),
           ),
           actions: <Widget>[
-            IconButton(onPressed: (() {}), icon: Icon(Icons.search))
+            IconButton(onPressed: (() {}), icon: Icon(Icons.search)),
+            IconButton(
+                onPressed: (() {
+                  authP.logout();
+                }),
+                icon: Icon(Icons.logout))
           ],
         ),
         body: ListView.builder(

@@ -141,8 +141,18 @@ exports.searchUser = async (req, res, next) => {
 exports.getFriends = async (req, res, next) => {
     try {
         const user = await User.findById(req.params.uid)
-        const userFriends = user.friends
-        res.status(200).json(userFriends)
+        const userfrnds = user.friends
+        const responseList = []
+        for (const element of userfrnds) {
+            try {
+                const user = await User.findById(element)
+                const { password, requests, friends, email, requested, createdAt, __v, ...others } = user._doc;
+                responseList.push(others)
+            } catch (err) {
+                res.status(500).json(err);
+            }
+        }
+        res.status(200).json(responseList)
     } catch (error) {
         res.status(500).json(error)
     }
@@ -153,7 +163,15 @@ exports.getRequests = async (req, res, next) => {
     try {
         const user = await User.findById(req.params.uid)
         const userreqs = user.requests
-        res.status(200).json(userreqs)
+        for (const element of userreqs) {
+            try {
+                const user = await User.findById(element)
+                const { password, ...others } = user._doc;
+                res.status(200).json(others)
+            } catch (err) {
+                res.status(500).json(err);
+            }
+        }
     } catch (error) {
         res.status(500).json(error)
     }

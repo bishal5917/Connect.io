@@ -4,6 +4,7 @@ import 'package:chat_app/Screens/login_screen.dart';
 import 'package:chat_app/providers/auth.dart';
 import 'package:chat_app/providers/conversations.dart';
 import 'package:chat_app/providers/messages.dart';
+import 'package:chat_app/providers/userAdons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider.value(
           value: Messages(),
+        ),
+        ChangeNotifierProvider.value(
+          value: UserAdons(),
         ),
       ],
       child: Consumer<Auth>(

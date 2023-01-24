@@ -136,3 +136,25 @@ exports.searchUser = async (req, res, next) => {
         res.status(500).json(error)
     }
 }
+
+//get user friends list
+exports.getFriends = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.uid)
+        const userFriends = user.friends
+        res.status(200).json(userFriends)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
+//get user request list
+exports.getRequests = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.uid)
+        const userreqs = user.requests
+        res.status(200).json(userreqs)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}

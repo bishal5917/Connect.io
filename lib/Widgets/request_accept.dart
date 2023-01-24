@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
 class RequestAccept extends StatefulWidget {
-  const RequestAccept({super.key});
+  
 
   @override
   State<RequestAccept> createState() => _RequestAcceptState();

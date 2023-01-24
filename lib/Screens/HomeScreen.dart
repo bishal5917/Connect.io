@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:chat_app/Screens/Message.dart';
 import 'package:chat_app/providers/auth.dart';
 import 'package:chat_app/providers/conversations.dart';
@@ -11,7 +13,9 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _controller;
   @override
   void initState() {
     Future.delayed(Duration.zero).then((value) {
@@ -21,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
           .getConvos(loggedUserId);
     });
     super.initState();
+    _controller = TabController(length: 3, vsync: this, initialIndex: 0);
   }
 
   Widget build(BuildContext context) {
@@ -42,6 +47,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 }),
                 icon: Icon(Icons.logout))
           ],
+          bottom: TabBar(controller: _controller, tabs: [
+            Tab(
+              text: "Chats",
+            ),
+            Tab(
+              text: "Friends",
+            ),
+            Tab(
+              text: "Requests",
+            ),
+          ]),
         ),
         body: ListView.builder(
             itemCount: convList.length,

@@ -13,7 +13,7 @@ class Chat extends StatefulWidget {
 
 class _ChatState extends State<Chat> {
   final messageController = TextEditingController();
-  final ScrollController _controller = ScrollController();
+  final _controller = ScrollController();
 
   void _scrollDown() {
     _controller.animateTo(
@@ -26,6 +26,7 @@ class _ChatState extends State<Chat> {
   void dispose() {
     // Clean up the controller when the widget is disposed.
     messageController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 

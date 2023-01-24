@@ -41,13 +41,14 @@ class Messages with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> sendChat(
-      String conversationId, String senderId, String text) async {
+  Future<void> sendChat(String conversationId, String senderId, String text,
+      String createdAt) async {
     String url = Config.sendMessUrl;
     final response = await http.post(url, body: {
       "conversationId": conversationId,
       "senderId": senderId,
-      "text": text
+      "text": text,
+      "createdAt": createdAt
     });
     notifyListeners();
   }

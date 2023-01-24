@@ -13,7 +13,11 @@ const messageSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-}, { timestamps: true }  //timestamps will  be given on creation and updation automatically
+    createdAt: {
+        type: String,
+        required: true
+    }
+},  //timestamps will  be given on creation and updation automatically
 );
 
 module.exports = mongoose.model('message', messageSchema) 

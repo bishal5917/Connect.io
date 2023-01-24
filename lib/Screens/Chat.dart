@@ -110,8 +110,12 @@ class _ChatState extends State<Chat> {
                     color: Colors.teal,
                     onPressed: () {
                       _scrollDown();
-                      messProvider.sendChat(argso['cid'] as String,
-                          authProvider.userId, messageController.text);
+                      messProvider.sendChat(
+                          argso['cid'] as String,
+                          authProvider.userId,
+                          messageController.text,
+                          DateFormat('MM/dd/yyyy hh:mm a')
+                              .format(DateTime.now()));
                       sendmessage = true;
                       sendingMessage.add(Message(
                           id: messageController.text +

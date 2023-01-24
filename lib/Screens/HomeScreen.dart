@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:chat_app/Screens/Message.dart';
+import 'package:chat_app/Screens/friend_list.dart';
+import 'package:chat_app/Screens/request_list.dart';
 import 'package:chat_app/providers/auth.dart';
 import 'package:chat_app/providers/conversations.dart';
 import 'package:flutter/material.dart';
@@ -59,11 +61,18 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ]),
         ),
-        body: ListView.builder(
-            itemCount: convList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Message(convList[index].id, convList[index].friendname,
-                  convList[index].id, convList[index].fr_avatar);
-            }));
+        body: TabBarView(
+          controller: _controller,
+          children: [
+            ListView.builder(
+                itemCount: convList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Message(convList[index].id, convList[index].friendname,
+                      convList[index].id, convList[index].fr_avatar);
+                }),
+            FriendList(),
+            RequestList()
+          ],
+        ));
   }
 }

@@ -6,4 +6,5 @@ class Config {
   static const String getMessages = "$mainUrl/api/messages/fetch";
   static const String sendMessUrl = "$mainUrl/api/messages/send";
   static const String getUserFrndUrl = "$mainUrl/api/users/getFriendList";
+  static const String getUserReqUrl = "$mainUrl/api/users/getRequestList";
 }

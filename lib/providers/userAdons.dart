@@ -15,9 +15,14 @@ class UserAdon with ChangeNotifier {
 
 class UserAdons with ChangeNotifier {
   List<UserAdon> _friends = [];
+  List<UserAdon> _reqs = [];
 
   List<UserAdon> get userFriends {
     return [..._friends];
+  }
+
+  List<UserAdon> get userRequests {
+    return [..._reqs];
   }
 
   Future<void> getUserFriends(String loggedUserId) async {
@@ -32,6 +37,21 @@ class UserAdons with ChangeNotifier {
           avatar: element['avatar']));
     });
     _friends = loadedUserAdons;
+    notifyListeners();
+  }
+
+  Future<void> getUserReqs(String loggedUserId) async {
+    String url = "${Config.getUserReqUrl}/$loggedUserId";
+    final response = await http.get(url);
+    final jsonResp = await json.decode(response.body);
+    final List<UserAdon> loadedUserAdons = [];
+    jsonResp.forEach((element) {
+      loadedUserAdons.add(UserAdon(
+          id: element['_id'],
+          username: element['username'],
+          avatar: element['avatar']));
+    });
+    _reqs = loadedUserAdons;
     notifyListeners();
   }
 }

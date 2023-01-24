@@ -163,15 +163,17 @@ exports.getRequests = async (req, res, next) => {
     try {
         const user = await User.findById(req.params.uid)
         const userreqs = user.requests
+        const responseList = []
         for (const element of userreqs) {
             try {
                 const user = await User.findById(element)
-                const { password, ...others } = user._doc;
-                res.status(200).json(others)
+                const { password, requests, friends, email, requested, createdAt, __v, ...others } = user._doc;
+                responseList.push(others)
             } catch (err) {
                 res.status(500).json(err);
             }
         }
+        res.status(200).json(responseList)
     } catch (error) {
         res.status(500).json(error)
     }

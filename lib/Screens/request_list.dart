@@ -24,6 +24,7 @@ class _RequestListState extends State<RequestList> {
 
   Widget build(BuildContext context) {
     final userReqs = Provider.of<UserAdons>(context).userRequests;
+    final loggedUser = Provider.of<Auth>(context).userId;
     // print(userFrnds);
 
     return userReqs.length > 0
@@ -38,7 +39,7 @@ class _RequestListState extends State<RequestList> {
                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtPjb7Y2_dCpoMBp45tE8RcZTV3WLs5ItqW4hjEN3VnUkPlwveQV6kYw8_cuwT-wsBKB0&usqp=CAU"),
                   ),
                   title: Text(userReqs[index].username),
-                  trailing: RequestAccept(),
+                  trailing: RequestAccept(loggedUser, userReqs[index].id),
                 ),
               );
             },

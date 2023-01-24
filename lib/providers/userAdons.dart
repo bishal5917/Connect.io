@@ -57,7 +57,7 @@ class UserAdons with ChangeNotifier {
 
   Future<void> acceptReq(String userId, String reqId) async {
     String url = Config.acceptReqUrl;
-    final response = await http.post(url, body: {
+    final response = await http.put(url, body: {
       "userId": userId,
       "reqId": reqId,
     });

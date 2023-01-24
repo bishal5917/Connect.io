@@ -1,3 +1,4 @@
+import 'package:chat_app/Widgets/request_accept.dart';
 import 'package:chat_app/providers/auth.dart';
 import 'package:chat_app/providers/userAdons.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class _RequestListState extends State<RequestList> {
                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtPjb7Y2_dCpoMBp45tE8RcZTV3WLs5ItqW4hjEN3VnUkPlwveQV6kYw8_cuwT-wsBKB0&usqp=CAU"),
                   ),
                   title: Text(userReqs[index].username),
-                  trailing: Icon(Icons.chat),
+                  trailing: RequestAccept(),
                 ),
               );
             },

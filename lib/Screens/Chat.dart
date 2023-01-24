@@ -119,6 +119,7 @@ class _ChatState extends State<Chat> {
                           senderId: authProvider.userId,
                           text: messageController.text,
                           date: DateFormat("hh:mm a").format(DateTime.now())));
+                      messageController.clear();
                     },
                     iconSize: 25,
                     icon: Icon(Icons.send))

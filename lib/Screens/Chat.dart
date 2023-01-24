@@ -3,6 +3,7 @@ import 'package:chat_app/providers/auth.dart';
 import 'package:chat_app/providers/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class Chat extends StatefulWidget {
   const Chat({super.key});
@@ -14,6 +15,10 @@ class Chat extends StatefulWidget {
 class _ChatState extends State<Chat> {
   final messageController = TextEditingController();
   final _controller = ScrollController();
+  bool sendmessage = false;
+
+  //for storing currently sent message
+  final List<Message> sendingMessage = [];
 
   void _scrollDown() {
     _controller.animateTo(
@@ -39,6 +44,7 @@ class _ChatState extends State<Chat> {
       Provider.of<Messages>(context, listen: false)
           .fetchMessages(args["cid"] as String);
     });
+
     super.initState();
   }
 
@@ -55,18 +61,31 @@ class _ChatState extends State<Chat> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-                controller: _controller,
-                itemCount: messList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Chat_Sentences(
-                    argso['fid'] as String,
-                    argso['fname'] as String,
-                    messList[index].text,
-                    messList[index].date,
-                    messList[index].senderId,
-                  );
-                }),
+            child: sendmessage == false
+                ? ListView.builder(
+                    controller: _controller,
+                    itemCount: messList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Chat_Sentences(
+                        argso['fid'] as String,
+                        argso['fname'] as String,
+                        messList[index].text,
+                        messList[index].date,
+                        messList[index].senderId,
+                      );
+                    })
+                : ListView.builder(
+                    controller: _controller,
+                    itemCount: sendingMessage.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Chat_Sentences(
+                        argso['fid'] as String,
+                        argso['fname'] as String,
+                        sendingMessage[index].text,
+                        sendingMessage[index].date,
+                        sendingMessage[index].senderId,
+                      );
+                    }),
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 8),
@@ -93,6 +112,13 @@ class _ChatState extends State<Chat> {
                       _scrollDown();
                       messProvider.sendChat(argso['cid'] as String,
                           authProvider.userId, messageController.text);
+                      sendmessage = true;
+                      sendingMessage.add(Message(
+                          id: messageController.text +
+                              DateTime.now().toIso8601String(),
+                          senderId: authProvider.userId,
+                          text: messageController.text,
+                          date: DateFormat("hh:mm a").format(DateTime.now())));
                     },
                     iconSize: 25,
                     icon: Icon(Icons.send))

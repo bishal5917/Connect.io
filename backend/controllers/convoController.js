@@ -1,5 +1,6 @@
 const Convo = require("../models/Convo");
 const User = require("../models/User");
+const ErrorResponse = require("../utils/errorResponse");
 const errorResponse = require("../utils/errorResponse");
 
 //saving new conversations
@@ -8,6 +9,12 @@ exports.saveConversation = async (req, res, next) => {
     members: [req.body.senderId, req.body.receiverId],
   });
   try {
+    const findConversation = await Convo.findOne({
+      members: { $in: [req.body.senderId], $in: [req.body.receiverId] },
+    });
+    if (findConversation) {
+      return next(new ErrorResponse("Already Exists", 403));
+    }
     const savedConvo = await newConversation.save();
     res.status(200).send(savedConvo);
   } catch (error) {
@@ -50,7 +57,7 @@ exports.ifNewConversation = async (req, res, next) => {
     if (findConversation) {
       return res.status(200).send(findConversation);
     } else {
-      return res.status(404).send("Not Found");
+      return res.status(404).json("Not Found");
     }
   } catch (error) {
     res.status(500).json(error);

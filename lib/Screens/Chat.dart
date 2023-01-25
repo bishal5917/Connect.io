@@ -46,11 +46,16 @@ class _ChatState extends State<Chat> {
         Provider.of<Messages>(context, listen: false)
             .fetchMessages(args["cid"] as String);
       }
-      if (args["cid"] == "NaN") {
-        final convProvider = Provider.of<Conversations>(context, listen: false);
-        Provider.of<Messages>(context, listen: false)
-            .fetchMessages(convProvider.getConvoId);
-      }
+
+      // final convProvider = Provider.of<Conversations>(context, listen: false);
+      // if (args["cid"] == "NaN") {
+      //   final aP = Provider.of<Auth>(context, listen: false);
+      //   convProvider.checkConversation(aP.userId, args["fid"] as String);
+      //   if (convProvider.getConvoId.isNotEmpty) {
+      //     Provider.of<Messages>(context, listen: false)
+      //         .fetchMessages(convProvider.getConvoId);
+      //   }
+      // }
     });
 
     super.initState();

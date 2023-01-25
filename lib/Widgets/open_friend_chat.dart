@@ -1,3 +1,5 @@
+import 'package:chat_app/providers/auth.dart';
+import 'package:chat_app/providers/conversations.dart';
 import 'package:chat_app/providers/userAdons.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +20,13 @@ class _OpenFriendChatState extends State<OpenFriendChat> {
   @override
   Widget build(BuildContext context) {
     final userAdonProv = Provider.of<UserAdons>(context);
+    final authProv = Provider.of<Auth>(context);
+    final convoProv = Provider.of<Conversations>(context);
     return InkWell(
       onTap: () {
+        convoProv.checkConversation(authProv.userId, widget.frndId);
         Navigator.pushNamed(context, '/open_chat', arguments: {
-          "cid": "asiajisajs",
+          "cid": "NaN",
           "fname": widget.frndName,
           "fid": widget.frndId
         });

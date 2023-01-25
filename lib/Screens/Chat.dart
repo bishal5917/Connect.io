@@ -1,5 +1,6 @@
 import 'package:chat_app/Screens/chat_sentences.dart';
 import 'package:chat_app/providers/auth.dart';
+import 'package:chat_app/providers/conversations.dart';
 import 'package:chat_app/providers/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,8 +42,15 @@ class _ChatState extends State<Chat> {
       _scrollDown();
       final args =
           ModalRoute.of(context)!.settings.arguments as Map<String, String>;
-      Provider.of<Messages>(context, listen: false)
-          .fetchMessages(args["cid"] as String);
+      if (args["cid"] != "NaN") {
+        Provider.of<Messages>(context, listen: false)
+            .fetchMessages(args["cid"] as String);
+      }
+      if (args["cid"] == "NaN") {
+        final convProvider = Provider.of<Conversations>(context, listen: false);
+        Provider.of<Messages>(context, listen: false)
+            .fetchMessages(convProvider.getConvoId);
+      }
     });
 
     super.initState();

@@ -48,9 +48,9 @@ exports.ifNewConversation = async (req, res, next) => {
       members: [req.params.uid, req.params.fid],
     });
     if (findConversation) {
-      res.status(200).send(findConversation);
+      return res.status(200).send(findConversation);
     } else {
-      res.status(200).send(false);
+      return res.status(404).send("Not Found");
     }
   } catch (error) {
     res.status(500).json(error);

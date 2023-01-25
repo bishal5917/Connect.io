@@ -20,9 +20,14 @@ class Conversation with ChangeNotifier {
 
 class Conversations with ChangeNotifier {
   List<Conversation> _items = [];
+  String convoId = "";
 
   List<Conversation> get items {
     return [..._items];
+  }
+
+  String get getConvoId {
+    return convoId;
   }
 
   Future<void> getConvos(String loggedUserId) async {
@@ -38,6 +43,18 @@ class Conversations with ChangeNotifier {
           fr_avatar: element['fr_avatar']));
     });
     _items = loadedConversations;
+    notifyListeners();
+  }
+
+  Future<void> checkConversation(String uid, String fid) async {
+    String url = "${Config.getCheckConvoUrl}/$uid/$fid";
+    final response = await http.get(url);
+    if (response.statusCode == 404) {
+      return;
+    }
+    final jsonResp = await json.decode(response.body);
+    convoId = jsonResp['_id'];
+    print(convoId);
     notifyListeners();
   }
 }

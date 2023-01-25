@@ -57,4 +57,13 @@ class Conversations with ChangeNotifier {
     print(convoId);
     notifyListeners();
   }
+
+  Future<void> createChat(String uid, String fid) async {
+    String url = Config.createChatUrl;
+    final response = await http.post(url, body: {
+      "senderId": uid,
+      "receiverId": fid,
+    });
+    notifyListeners();
+  }
 }

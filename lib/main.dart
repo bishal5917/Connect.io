@@ -1,4 +1,5 @@
 import 'package:chat_app/Screens/Chat.dart';
+import 'package:chat_app/Screens/FChat.dart';
 import 'package:chat_app/Screens/HomeScreen.dart';
 import 'package:chat_app/Screens/login_screen.dart';
 import 'package:chat_app/providers/auth.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
           home: auth.checkUser ? HomeScreen() : LoginScreen(),
           routes: {
             '/open_chat': (context) => Chat(),
+            '/open_fchat': (context) => FChat(),
           },
         ),
       ),

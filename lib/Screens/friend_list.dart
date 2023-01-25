@@ -1,3 +1,4 @@
+import 'package:chat_app/Widgets/open_friend_chat.dart';
 import 'package:chat_app/providers/auth.dart';
 import 'package:chat_app/providers/userAdons.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class _FriendListState extends State<FriendList> {
 
   Widget build(BuildContext context) {
     final userFrnds = Provider.of<UserAdons>(context).userFriends;
+    final userProv = Provider.of<Auth>(context);
     // print(userFrnds);
 
     return userFrnds.length > 0
@@ -39,7 +41,8 @@ class _FriendListState extends State<FriendList> {
                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtPjb7Y2_dCpoMBp45tE8RcZTV3WLs5ItqW4hjEN3VnUkPlwveQV6kYw8_cuwT-wsBKB0&usqp=CAU"),
                   ),
                   title: Text(userFrnds[index].username),
-                  trailing: Icon(Icons.chat),
+                  trailing: OpenFriendChat(
+                      userFrnds[index].username, userFrnds[index].id),
                 ),
               );
             },

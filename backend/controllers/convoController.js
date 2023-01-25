@@ -1,5 +1,4 @@
 
-const { find } = require('../models/Convo')
 const Convo = require('../models/Convo')
 const User = require('../models/User')
 const errorResponse = require('../utils/errorResponse')

@@ -5,8 +5,14 @@ const app = express();
 var server = http.createServer(app);
 var io = require("socket.io")(server);
 
-io.on("Connection", (socket) => {
-  console.log("connected");
+var onlineUsers = {};
+
+io.on("connection", (socket) => {
+  socket.on("/online", (iid) => {
+    // console.log(iid);
+    onlineUsers[iid] = socket.id;
+    console.log(onlineUsers);
+  });
 });
 
 server.listen(port, "0.0.0.0", () => {

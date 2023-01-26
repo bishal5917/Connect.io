@@ -40,7 +40,8 @@ class _ChatState extends State<Chat> {
 
   @override
   void initState() {
-    connectSocket();
+    final authProvider = Provider.of<Auth>(context, listen: false);
+    connectSocket(authProvider.userId);
     Future.delayed(Duration.zero).then((value) {
       _scrollDown();
       final args =
@@ -54,20 +55,21 @@ class _ChatState extends State<Chat> {
     super.initState();
   }
 
-  void connectSocket() {
+  void connectSocket(uid) {
     socket = IO.io("http://192.168.1.64:3050", <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": "false"
     });
     socket.connect();
-    socket.onConnect((data) => print("Connected To Flutter"));
-    socket.emit("/test")
+    // socket.onConnect((data) => print("Connected To Flutter"));
+    socket.emit("/online", uid);
   }
 
   Widget build(BuildContext context) {
     final messProvider = Provider.of<Messages>(context);
     final authProvider = Provider.of<Auth>(context);
     final messList = messProvider.items;
+
     final argso =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     return Scaffold(

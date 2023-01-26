@@ -9,9 +9,17 @@ var onlineUsers = {};
 
 io.on("connection", (socket) => {
   socket.on("/online", (iid) => {
-    // console.log(iid);
-    onlineUsers[iid] = socket.id;
-    console.log(onlineUsers);
+    onlineUsers[iid] = socket;
+    // console.log(onlineUsers);
+  });
+
+  socket.on("message", (msg) => {
+    console.log(msg);
+    let targetId = msg.targetId;
+    if (onlineUsers[targetId]) {
+        console.log("Emitted");
+      onlineUsers[targetId].emit("message", msg);
+    }
   });
 });
 

@@ -63,12 +63,31 @@ class _ChatState extends State<Chat> {
     socket.connect();
     // socket.onConnect((data) => print("Connected To Flutter"));
     socket.emit("/online", uid);
+    socket.onConnect((data) {
+      print("connected");
+      socket.on("message", (msg) {
+        print(msg);
+      });
+    });
   }
 
   Widget build(BuildContext context) {
     final messProvider = Provider.of<Messages>(context);
     final authProvider = Provider.of<Auth>(context);
     final messList = messProvider.items;
+
+    void sendRealTimeMessage() {
+      final srId = Provider.of<Auth>(context, listen: false).userId;
+      final argss =
+          ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+      socket.emit('message', {
+        "id": messageController.text + DateTime.now().toIso8601String(),
+        "text": messageController.text,
+        "date": DateFormat("hh:mm a").format(DateTime.now()),
+        "targetId": argss["fid"],
+        "senderId": srId
+      });
+    }
 
     final argso =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
@@ -128,6 +147,7 @@ class _ChatState extends State<Chat> {
                     color: Colors.teal,
                     onPressed: () {
                       _scrollDown();
+                      sendRealTimeMessage();
                       messProvider.sendChat(
                           argso['cid'] as String,
                           authProvider.userId,

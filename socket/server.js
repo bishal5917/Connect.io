@@ -35,10 +35,9 @@ io.on("connection", (socket) => {
     console.log(msg);
     const foundOne = onlineUsers.find(({ uid }) => uid === msg.targetId);
     const socket_id = foundOne?.socketId;
-    console.log(foundOne);
     console.log(socket_id);
     io.to(socket_id).emit("getmessage", {
-      msg,
+      msg
     });
     console.log("EMITTED");
   });

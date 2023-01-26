@@ -10,4 +10,5 @@ class Config {
   static const String acceptReqUrl = "$mainUrl/api/users/accept";
   static const String getCheckConvoUrl = "$mainUrl/api/convos/check";
   static const String createChatUrl = "$mainUrl/api/convos/create";
+  static const String getTargetUrl = "$mainUrl/api/convos/getTarget";
 }

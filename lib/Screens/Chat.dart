@@ -46,7 +46,8 @@ class _ChatState extends State<Chat> {
       _scrollDown();
       final args =
           ModalRoute.of(context)!.settings.arguments as Map<String, String>;
-      print(args['fid']);
+      final convProvider = Provider.of<Conversations>(context, listen: false)
+          .getTarget(args["cid"] as String, authProvider.userId);
       if (args["cid"] != "NaN") {
         Provider.of<Messages>(context, listen: false)
             .fetchMessages(args["cid"] as String);
@@ -75,6 +76,7 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     final messProvider = Provider.of<Messages>(context);
     final authProvider = Provider.of<Auth>(context);
+    final convProvider = Provider.of<Conversations>(context);
     final messList = messProvider.items;
 
     void sendRealTimeMessage() {
@@ -85,7 +87,7 @@ class _ChatState extends State<Chat> {
         "id": messageController.text + DateTime.now().toIso8601String(),
         "text": messageController.text,
         "date": DateFormat("hh:mm a").format(DateTime.now()),
-        "targetId": argss["fid"],
+        "targetId": convProvider.targetId,
         "senderId": srId
       });
     }

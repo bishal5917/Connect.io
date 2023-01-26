@@ -21,6 +21,7 @@ class Conversation with ChangeNotifier {
 class Conversations with ChangeNotifier {
   List<Conversation> _items = [];
   String convoId = "";
+  String targetId = "";
 
   List<Conversation> get items {
     return [..._items];
@@ -63,6 +64,13 @@ class Conversations with ChangeNotifier {
       "senderId": uid,
       "receiverId": fid,
     });
+    notifyListeners();
+  }
+
+  Future<void> getTarget(String cid, String uid) async {
+    String url = "${Config.getTargetUrl}/$cid/$uid";
+    final response = await http.get(url);
+    targetId = response.body;
     notifyListeners();
   }
 }

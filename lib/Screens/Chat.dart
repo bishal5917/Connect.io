@@ -5,6 +5,7 @@ import 'package:chat_app/providers/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class Chat extends StatefulWidget {
   const Chat({super.key});
@@ -17,6 +18,7 @@ class _ChatState extends State<Chat> {
   final messageController = TextEditingController();
   final _controller = ScrollController();
   bool sendmessage = false;
+  late IO.Socket socket;
 
   //for storing currently sent message
   final List<Message> sendingMessage = [];
@@ -38,6 +40,7 @@ class _ChatState extends State<Chat> {
 
   @override
   void initState() {
+    connectSocket();
     Future.delayed(Duration.zero).then((value) {
       _scrollDown();
       final args =
@@ -46,19 +49,19 @@ class _ChatState extends State<Chat> {
         Provider.of<Messages>(context, listen: false)
             .fetchMessages(args["cid"] as String);
       }
-
-      // final convProvider = Provider.of<Conversations>(context, listen: false);
-      // if (args["cid"] == "NaN") {
-      //   final aP = Provider.of<Auth>(context, listen: false);
-      //   convProvider.checkConversation(aP.userId, args["fid"] as String);
-      //   if (convProvider.getConvoId.isNotEmpty) {
-      //     Provider.of<Messages>(context, listen: false)
-      //         .fetchMessages(convProvider.getConvoId);
-      //   }
-      // }
     });
 
     super.initState();
+  }
+
+  void connectSocket() {
+    socket = IO.io("http://192.168.1.64:3050", <String, dynamic>{
+      "transports": ["websocket"],
+      "autoConnect": "false"
+    });
+    socket.connect();
+    socket.onConnect((data) => print("Connected To Flutter"));
+    socket.emit("/test")
   }
 
   Widget build(BuildContext context) {

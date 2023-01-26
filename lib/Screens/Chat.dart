@@ -46,6 +46,7 @@ class _ChatState extends State<Chat> {
       _scrollDown();
       final args =
           ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+      print(args['fid']);
       if (args["cid"] != "NaN") {
         Provider.of<Messages>(context, listen: false)
             .fetchMessages(args["cid"] as String);
@@ -65,7 +66,7 @@ class _ChatState extends State<Chat> {
     socket.emit("/online", uid);
     socket.onConnect((data) {
       print("connected");
-      socket.on("message", (msg) {
+      socket.on("getmessage", (msg) {
         print(msg);
       });
     });

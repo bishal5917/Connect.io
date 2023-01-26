@@ -5,21 +5,42 @@ const app = express();
 var server = http.createServer(app);
 var io = require("socket.io")(server);
 
-var onlineUsers = {};
+//creating array for online users
+let onlineUsers = [];
+
+//function for creating new users
+const addUser = (uid, socketId) => {
+  //pushing users into array if there is new user
+  !onlineUsers.some((user) => user.uid === uid) &&
+    onlineUsers.push({ uid, socketId });
+};
+
+//function for removing users
+const removeUser = (socketId) => {
+  onlineUsers = onlineUsers.filter((user) => user.socketId !== socketId);
+};
+
+//function for getting users
+const getUser = (uid) => {
+  return onlineUsers.find((user) => user.uid === uid);
+};
 
 io.on("connection", (socket) => {
   socket.on("/online", (iid) => {
-    onlineUsers[iid] = socket;
-    // console.log(onlineUsers);
+    addUser(iid, socket.id);
+    console.log(onlineUsers);
   });
 
   socket.on("message", (msg) => {
     console.log(msg);
-    let targetId = msg.targetId;
-    if (onlineUsers[targetId]) {
-        console.log("Emitted");
-      onlineUsers[targetId].emit("message", msg);
-    }
+    const foundOne = onlineUsers.find(({ uid }) => uid === msg.targetId);
+    const socket_id = foundOne?.socketId;
+    console.log(foundOne);
+    console.log(socket_id);
+    io.to(socket_id).emit("getmessage", {
+      msg,
+    });
+    console.log("EMITTED");
   });
 });
 

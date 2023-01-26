@@ -63,3 +63,15 @@ exports.ifNewConversation = async (req, res, next) => {
     res.status(500).json(error);
   }
 };
+
+//get another user id
+exports.getTargetId = async (req, res, next) => {
+  try {
+    const findConversation = await Convo.findById(req.params.cid);
+    const removedSenderId = findConversation.members.pull(req.params.uid);
+    const targetId = removedSenderId[0];
+    res.status(200).send(targetId);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};

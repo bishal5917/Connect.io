@@ -32,13 +32,10 @@ io.on("connection", (socket) => {
   });
 
   socket.on("message", (msg) => {
-    console.log(msg);
     const foundOne = onlineUsers.find(({ uid }) => uid === msg.targetId);
     const socket_id = foundOne?.socketId;
     console.log(socket_id);
-    io.to(socket_id).emit("getmessage", {
-      msg
-    });
+    io.to(socket_id).emit("getmessage", { msg });
     console.log("EMITTED");
   });
 });

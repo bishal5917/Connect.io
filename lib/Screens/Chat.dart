@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'dart:convert';
+import '../config.dart';
+import 'dart:io';
 
 class Chat extends StatefulWidget {
   const Chat({super.key});
@@ -68,7 +71,15 @@ class _ChatState extends State<Chat> {
     socket.onConnect((data) {
       print("connected");
       socket.on("getmessage", (msg) {
-        print(msg);
+        final List realTimeMsg = msg["msg"].values.toList();
+        sendingMessage.add(Message(
+            id: realTimeMsg[0],
+            senderId: realTimeMsg[4],
+            text: realTimeMsg[1],
+            date: realTimeMsg[2]));
+        sendmessage = true;
+        print(sendingMessage);
+        print(realTimeMsg);
       });
     });
   }

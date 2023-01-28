@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 var bodyParser = require("body-parser");
 const helmet = require("helmet");
 const http = require("http");
@@ -31,8 +32,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions)); // Use this after the variable declaration
 
-MONGO_URL =
-  "mongodb+srv://Bsal:newpass@cluster0.lbpqbeq.mongodb.net/?retryWrites=true&w=majority";
+MONGO_URL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASS}@cluster0.lbpqbeq.mongodb.net/?retryWrites=true&w=majority`;
 
 Mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
@@ -94,9 +94,9 @@ io.on("connection", (socket) => {
   socket.on("message", (msg) => {
     const foundOne = onlineUsers.find(({ uid }) => uid === msg.targetId);
     const socket_id = foundOne?.socketId;
-    console.log(socket_id);
+    // console.log(socket_id);
     io.to(socket_id).emit("getmessage", { msg });
-    console.log("EMITTED");
+    // console.log("EMITTED");
   });
 });
 

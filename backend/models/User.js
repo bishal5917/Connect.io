@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -77,7 +78,7 @@ userSchema.methods.comparePassword = async function (password) {
 
 // JWT TOKEN
 userSchema.methods.getJWTToken = function () {
-    return jwt.sign({ id: this._id }, "timbergthelegend", {
+    return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
         expiresIn: "10min",
     });
 };

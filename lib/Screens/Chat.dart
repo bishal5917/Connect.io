@@ -61,7 +61,7 @@ class _ChatState extends State<Chat> {
   }
 
   void connectSocket(uid) {
-    socket = IO.io("http://192.168.1.64:3050", <String, dynamic>{
+    socket = IO.io("http://192.168.1.64:5000", <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": "false"
     });
@@ -69,7 +69,6 @@ class _ChatState extends State<Chat> {
     // socket.onConnect((data) => print("Connected To Flutter"));
     socket.emit("/online", uid);
     socket.onConnect((data) {
-      print("connected");
       socket.on("getmessage", (msg) {
         final List realTimeMsg = msg["msg"].values.toList();
         if (realTimeMsg.length > 0) {
@@ -80,8 +79,6 @@ class _ChatState extends State<Chat> {
             senderId: realTimeMsg[4],
             text: realTimeMsg[1],
             date: realTimeMsg[2]));
-        print(sendingMessage.length);
-        print(realTimeMsg);
       });
     });
   }

@@ -72,13 +72,15 @@ class _ChatState extends State<Chat> {
       print("connected");
       socket.on("getmessage", (msg) {
         final List realTimeMsg = msg["msg"].values.toList();
+        if (realTimeMsg.length > 0) {
+          sendmessage = true;
+        }
         sendingMessage.add(Message(
             id: realTimeMsg[0],
             senderId: realTimeMsg[4],
             text: realTimeMsg[1],
             date: realTimeMsg[2]));
-        sendmessage = true;
-        print(sendingMessage);
+        print(sendingMessage.length);
         print(realTimeMsg);
       });
     });

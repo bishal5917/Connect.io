@@ -1,6 +1,8 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -11,6 +13,17 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool showPass = false;
+  File? file;
+  ImagePicker imgP = ImagePicker();
+
+  getgall() async {
+    // ignore: deprecated_member_use
+    var img = await imgP.getImage(source: ImageSource.gallery);
+    setState(() {
+      file = File(img.path);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,36 +55,45 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       width: 130,
                       height: 130,
                       decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 4,
-                            color: Colors.white,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                                spreadRadius: 2,
-                                blurRadius: 10,
-                                color: Colors.black.withOpacity(0.1))
-                          ],
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                  "https://i.pinimg.com/originals/a0/49/9a/a0499a21a66b84cb420b38f95ed1cd56.png"))),
+                        border: Border.all(
+                          width: 4,
+                          color: Colors.white,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                              color: Colors.black.withOpacity(0.1))
+                        ],
+                        shape: BoxShape.circle,
+                      ),
+                      child: file == null
+                          ? Icon(
+                              Icons.image,
+                              size: 50,
+                            )
+                          : CircleAvatar(
+                              backgroundImage: FileImage(file!), radius: 20),
                     ),
                     Positioned(
                         bottom: 0,
                         right: 0,
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 24, 122, 155),
-                            shape: BoxShape.circle,
-                            border: Border.all(width: 4, color: Colors.white),
-                          ),
-                          child: Icon(
-                            Icons.edit,
-                            color: Colors.red,
+                        child: InkWell(
+                          onTap: () {
+                            getgall();
+                          },
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 24, 122, 155),
+                              shape: BoxShape.circle,
+                              border: Border.all(width: 4, color: Colors.white),
+                            ),
+                            child: Icon(
+                              Icons.edit,
+                              color: Colors.red,
+                            ),
                           ),
                         ))
                   ],

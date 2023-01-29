@@ -44,6 +44,7 @@ dev_dependencies:
   http: ^0.12.0+2
   shared_preferences: ^0.5.3+1
   socket_io_client: ^0.9.12
+  image_picker: ^0.6.0+9
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

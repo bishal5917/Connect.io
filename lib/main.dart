@@ -2,6 +2,7 @@ import 'package:chat_app/Screens/Chat.dart';
 import 'package:chat_app/Screens/FChat.dart';
 import 'package:chat_app/Screens/HomeScreen.dart';
 import 'package:chat_app/Screens/login_screen.dart';
+import 'package:chat_app/Screens/register_screen.dart';
 import 'package:chat_app/providers/auth.dart';
 import 'package:chat_app/providers/conversations.dart';
 import 'package:chat_app/providers/messages.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           // theme:
           //     ThemeData(primarySwatch: Colors.deepOrange, fontFamily: 'Lato'),
-          home: auth.checkUser ? HomeScreen() : LoginScreen(),
+          home: auth.checkUser ? HomeScreen() : RegisterScreen(),
           routes: {
             '/open_chat': (context) => Chat(),
             '/open_fchat': (context) => FChat(),

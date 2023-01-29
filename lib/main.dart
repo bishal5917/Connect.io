@@ -46,6 +46,8 @@ class MyApp extends StatelessWidget {
           routes: {
             '/open_chat': (context) => Chat(),
             '/open_fchat': (context) => FChat(),
+            '/goto_login': (context) => LoginScreen(),
+            '/goto_register': (context) => RegisterScreen(),
           },
         ),
       ),

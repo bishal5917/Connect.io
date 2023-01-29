@@ -139,8 +139,57 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
-              ],)
+                  InkWell(
+                    onTap: () {
+                      // saveForm();
+                      // authproviders.Login(loginDetail['email'] as String,
+                      //     loginDetail['pass'] as String);
+                      // setState(() {
+                      //   errorMessage = authproviders.errorMessage;
+                      // });
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      margin: EdgeInsets.all(10),
+                      child: Center(
+                        child: Text(
+                          "Register",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 0, 109, 159),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/goto_login');
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      margin: EdgeInsets.all(10),
+                      child: Center(
+                        child: Text(
+                          "<- Login",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 21, 118, 125),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  )
+                ],
+              )
             ],
           ),
         ),

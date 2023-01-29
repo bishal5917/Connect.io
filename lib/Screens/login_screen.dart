@@ -160,11 +160,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       width: 10,
                     ),
-                    Text(
-                      "Register Now",
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 125, 228, 0),
-                          fontWeight: FontWeight.bold),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/goto_register');
+                      },
+                      child: Text(
+                        "Register Now",
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 125, 228, 0),
+                            fontWeight: FontWeight.bold),
+                      ),
                     )
                   ],
                 )

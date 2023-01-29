@@ -1,6 +1,8 @@
 const express = require("express");
 require("dotenv").config();
 var bodyParser = require("body-parser");
+const path = require("path");
+const multer = require("multer");
 const helmet = require("helmet");
 const http = require("http");
 const morgan = require("morgan");
@@ -15,6 +17,9 @@ var io = require("socket.io")(socketSvr);
 //     console.log(`Shutting down the server due to Uncaught Exception`);
 //     process.exit(1);
 // });
+
+// MAKING IMAGES FOLDER PUBLIC TO USE
+app.use("/ProfPics", express.static(path.join(__dirname, "/ProfPics")));
 
 app.use(
   bodyParser.urlencoded({
@@ -106,6 +111,38 @@ const server = app.listen("5000", () => {
 
 socketSvr.listen("5000", "0.0.0.0", () => {
   console.log("Socket Server Running");
+});
+
+//MULTER RELATED CODE
+//code for file upload using multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "ProfPics");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}${path.extname(file.originalname)}`);
+  },
+});
+
+function checkFileType(file, cb) {
+  const filetypes = /jpg|jpeg|png/;
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  if (extname) {
+    return cb(null, true);
+  } else {
+    cb("Only Images can be upoaded !");
+  }
+}
+
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    checkFileType(file, cb);
+  },
+});
+
+app.post("/api/upload", upload.single("file"), (req, res) => {
+  res.status(200).json("file has been uploaded");
 });
 
 // Unhandled Promise Rejection

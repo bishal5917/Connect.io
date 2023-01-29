@@ -10,6 +10,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  bool showPass = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,6 +83,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Padding(
                 padding: EdgeInsets.only(bottom: 30),
                 child: TextField(
+                  style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(bottom: 5),
                       labelText: "Username",
@@ -100,6 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Padding(
                 padding: EdgeInsets.only(bottom: 30),
                 child: TextField(
+                  style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(bottom: 5),
                       labelText: "Email",
@@ -118,7 +121,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Padding(
                 padding: EdgeInsets.only(bottom: 30),
                 child: TextField(
+                  obscureText: showPass == true ? false : true,
+                  style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        icon: showPass == false
+                            ? Icon(
+                                Icons.visibility_off,
+                                color: Colors.grey,
+                              )
+                            : Icon(
+                                Icons.visibility,
+                                color: Colors.grey,
+                              ),
+                        onPressed: (() {
+                          setState(() {
+                            if (showPass == false) {
+                              showPass = true;
+                            } else {
+                              showPass = false;
+                            }
+                          });
+                        }),
+                      ),
                       contentPadding: EdgeInsets.only(bottom: 5),
                       labelText: "Password",
                       labelStyle: TextStyle(

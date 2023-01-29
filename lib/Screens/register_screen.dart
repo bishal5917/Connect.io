@@ -51,11 +51,96 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 blurRadius: 10,
                                 color: Colors.black.withOpacity(0.1))
                           ],
-                          shape: BoxShape.circle),
-                    )
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                  "https://i.pinimg.com/originals/a0/49/9a/a0499a21a66b84cb420b38f95ed1cd56.png"))),
+                    ),
+                    Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 24, 122, 155),
+                            shape: BoxShape.circle,
+                            border: Border.all(width: 4, color: Colors.white),
+                          ),
+                          child: Icon(
+                            Icons.edit,
+                            color: Colors.red,
+                          ),
+                        ))
                   ],
                 ),
-              )
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 30),
+                child: TextField(
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(bottom: 5),
+                      labelText: "Username",
+                      labelStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      hintText: "Choose a unique username ...",
+                      hintStyle: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey)),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 30),
+                child: TextField(
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(bottom: 5),
+                      labelText: "Email",
+                      labelStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      hintText: "Enter your Email ...",
+                      hintStyle: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey)),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 30),
+                child: TextField(
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(bottom: 5),
+                      labelText: "Password",
+                      labelStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      hintText: "Select a strong password ...",
+                      hintStyle: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey)),
+                ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+
+              ],)
             ],
           ),
         ),

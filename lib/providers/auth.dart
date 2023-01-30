@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
+import 'dart:io';
 import '../config.dart';
 
 class Auth with ChangeNotifier {
@@ -51,6 +52,12 @@ class Auth with ChangeNotifier {
     final details = await json.decode(extractedUserData);
     token = details['token'] as String;
     userId = details["userId"] as String;
+    notifyListeners();
+  }
+
+  Future<void> uploadPic(File? profPic) async {
+    const url = Config.loginUrl;
+    final response = await http.post(url, body: profPic);
     notifyListeners();
   }
 

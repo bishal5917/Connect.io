@@ -260,14 +260,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         // print(registerDetail);
                         if (registerDetail['username']!.isNotEmpty &&
                             registerDetail['email']!.isNotEmpty &&
-                            registerDetail['pass']!.isNotEmpty) {
+                            registerDetail['pass']!.isNotEmpty &&
+                            registerDetail['profPic']!.isNotEmpty) {
                           authproviders.RegisterUser(
                               registerDetail['username'] as String,
                               registerDetail['email'] as String,
                               registerDetail['pass'] as String,
                               registerDetail['profPic'] as String);
-                          if (authproviders.checkUser) {
-                            Navigator.of(context).pushNamed('/');
+                          // if (authproviders.checkUser) {
+                          //   Navigator.of(context).pushNamed('/');
+                          // }
+                          if (file != null) {
+                            authproviders.uploadPic(file);
                           }
                         }
                         // setState(() {

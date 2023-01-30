@@ -24,6 +24,24 @@ class Auth with ChangeNotifier {
     prefs.setString("userData", userData);
   }
 
+  Future<void> RegisterUser(
+      String username, String email, String password, String profPic) async {
+    const url = Config.registerUrl;
+    final response = await http.post(url, body: {
+      'username': username,
+      'email': email,
+      "password": password,
+      'profPic': profPic,
+    });
+    final jsonResp = await json.decode(response.body);
+    token = await jsonResp['token'];
+    userId = await jsonResp["user"]["_id"];
+    notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    final userData = json.encode({"token": token, "userId": userId});
+    prefs.setString("userData", userData);
+  }
+
   Future<void> autoLogin() async {
     final prefs = await SharedPreferences.getInstance();
     if (!prefs.containsKey('userData')) {

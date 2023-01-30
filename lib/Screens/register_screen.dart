@@ -1,8 +1,10 @@
+import 'package:chat_app/providers/auth.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -18,7 +20,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final nextFocus = FocusNode();
   final formKey = GlobalKey<FormState>();
-  var registerDetail = {'username': "", 'email': "", 'pass': ""};
+  var registerDetail = {'username': "", 'email': "", 'pass': "", 'profPic': ""};
+
+  void initState() {
+    Future.delayed(Duration.zero).then((value) {
+      final authproviders = Provider.of<Auth>(context, listen: false);
+      if (authproviders.checkUser) {
+        Navigator.of(context).pushNamed('/');
+      }
+    });
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -37,11 +49,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
     var img = await imgP.getImage(source: ImageSource.gallery);
     setState(() {
       file = File(img.path);
+      registerDetail['profPic'] = img.path;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final authproviders = Provider.of<Auth>(context);
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 10, 67, 108),
       body: Container(
@@ -243,9 +257,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     InkWell(
                       onTap: () {
                         saveForm();
-                        print(registerDetail);
-                        // authproviders.Login(loginDetail['email'] as String,
-                        //     loginDetail['pass'] as String);
+                        // print(registerDetail);
+                        if (registerDetail['username']!.isNotEmpty &&
+                            registerDetail['email']!.isNotEmpty &&
+                            registerDetail['pass']!.isNotEmpty) {
+                          authproviders.RegisterUser(
+                              registerDetail['username'] as String,
+                              registerDetail['email'] as String,
+                              registerDetail['pass'] as String,
+                              registerDetail['profPic'] as String);
+                          if (authproviders.checkUser) {
+                            Navigator.of(context).pushNamed('/');
+                          }
+                        }
                         // setState(() {
                         //   errorMessage = authproviders.errorMessage;
                         // });

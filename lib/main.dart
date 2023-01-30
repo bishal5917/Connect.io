@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           // theme:
           //     ThemeData(primarySwatch: Colors.deepOrange, fontFamily: 'Lato'),
-          home: auth.checkUser ? HomeScreen() : RegisterScreen(),
+          home: auth.checkUser ? HomeScreen() : LoginScreen(),
           routes: {
             '/open_chat': (context) => Chat(),
             '/open_fchat': (context) => FChat(),

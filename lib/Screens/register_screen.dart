@@ -48,7 +48,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     // ignore: deprecated_member_use
     var img = await imgP.getImage(source: ImageSource.gallery);
     setState(() {
-      file = File(img.path);
+      // file = File(img.path);
+      file = img as File;
       registerDetail['profPic'] = img.path;
     });
   }
@@ -257,7 +258,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     InkWell(
                       onTap: () {
                         saveForm();
-                        // print(registerDetail);
+                        print(registerDetail);
+                        print(file);
                         if (registerDetail['username']!.isNotEmpty &&
                             registerDetail['email']!.isNotEmpty &&
                             registerDetail['pass']!.isNotEmpty &&
@@ -271,7 +273,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           //   Navigator.of(context).pushNamed('/');
                           // }
                           if (file != null) {
-                            authproviders.uploadPic(file);
+                            authproviders
+                                .uploadPic(registerDetail['profPic'] as String);
                           }
                         }
                         // setState(() {

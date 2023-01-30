@@ -55,9 +55,17 @@ class Auth with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> uploadPic(File? profPic) async {
-    const url = Config.loginUrl;
-    final response = await http.post(url, body: profPic);
+  Future<void> uploadPic(String profPic) async {
+    var postUri = Uri.parse(Config.fileUploadUrl);
+
+    http.MultipartRequest request = new http.MultipartRequest("POST", postUri);
+
+    http.MultipartFile multipartFile =
+        await http.MultipartFile.fromPath('file', profPic);
+
+    request.files.add(multipartFile);
+
+    http.StreamedResponse response = await request.send();
     notifyListeners();
   }
 

@@ -8,9 +8,9 @@ import 'dart:io';
 class UserAdon with ChangeNotifier {
   final String id;
   final String username;
-  final Map<String, dynamic> avatar;
+  final String profPic;
 
-  UserAdon({required this.id, required this.username, required this.avatar});
+  UserAdon({required this.id, required this.username, required this.profPic});
 }
 
 class UserAdons with ChangeNotifier {
@@ -34,7 +34,7 @@ class UserAdons with ChangeNotifier {
       loadedUserAdons.add(UserAdon(
           id: element['_id'],
           username: element['username'],
-          avatar: element['avatar']));
+          profPic: element['profPic']));
     });
     _friends = loadedUserAdons;
     notifyListeners();
@@ -49,7 +49,7 @@ class UserAdons with ChangeNotifier {
       loadedUserAdons.add(UserAdon(
           id: element['_id'],
           username: element['username'],
-          avatar: element['avatar']));
+          profPic: element['profPic']));
     });
     _reqs = loadedUserAdons;
     notifyListeners();

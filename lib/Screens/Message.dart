@@ -15,9 +15,9 @@ class Message extends StatefulWidget {
   final String userId;
   final String username;
   final String conversationId;
-  final Map<String, dynamic> fr_avatar;
+  final String profPic;
 
-  Message(this.userId, this.username, this.conversationId, this.fr_avatar);
+  Message(this.userId, this.username, this.conversationId, this.profPic);
 
   @override
   State<Message> createState() => _MessageState();
@@ -25,7 +25,6 @@ class Message extends StatefulWidget {
 
 class _MessageState extends State<Message> {
   @override
-
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {

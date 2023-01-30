@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen>
                 itemCount: convList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Message(convList[index].id, convList[index].friendname,
-                      convList[index].id, convList[index].fr_avatar);
+                      convList[index].id, convList[index].profPic);
                 }),
             FriendList(),
             RequestList()

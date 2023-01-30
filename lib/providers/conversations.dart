@@ -9,13 +9,13 @@ class Conversation with ChangeNotifier {
   final String id;
   final String friendname;
   final List<dynamic> members;
-  final Map<String, dynamic> fr_avatar;
+  final String profPic;
 
   Conversation(
       {required this.id,
       required this.friendname,
       required this.members,
-      required this.fr_avatar});
+      required this.profPic});
 }
 
 class Conversations with ChangeNotifier {
@@ -41,7 +41,7 @@ class Conversations with ChangeNotifier {
           id: element['_id'],
           friendname: element['friendname'],
           members: element['members'],
-          fr_avatar: element['fr_avatar']));
+          profPic: element['profPic']));
     });
     _items = loadedConversations;
     notifyListeners();

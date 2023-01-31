@@ -4,12 +4,12 @@ var bodyParser = require("body-parser");
 const path = require("path");
 const multer = require("multer");
 const helmet = require("helmet");
-const http = require("http");
+// const http = require("http");
 const morgan = require("morgan");
 const Mongoose = require("mongoose");
 const app = express();
-var socketSvr = http.createServer(app);
-var io = require("socket.io")(socketSvr);
+// var socketSvr = http.createServer(app);
+// var io = require("socket.io")(socketSvr);
 
 // Handling Uncaught Exception
 // process.on("uncaughtException", (err) => {
@@ -71,47 +71,47 @@ app.use("/api", messageroute);
 /// *** SOCKET RELATED CODE *** ///
 
 //creating array for online users
-let onlineUsers = [];
+// let onlineUsers = [];
 
-//function for creating new users
-const addUser = (uid, socketId) => {
-  //pushing users into array if there is new user
-  !onlineUsers.some((user) => user.uid === uid) &&
-    onlineUsers.push({ uid, socketId });
-};
+// //function for creating new users
+// const addUser = (uid, socketId) => {
+//   //pushing users into array if there is new user
+//   !onlineUsers.some((user) => user.uid === uid) &&
+//     onlineUsers.push({ uid, socketId });
+// };
 
-//function for removing users
-const removeUser = (socketId) => {
-  onlineUsers = onlineUsers.filter((user) => user.socketId !== socketId);
-};
+// //function for removing users
+// const removeUser = (socketId) => {
+//   onlineUsers = onlineUsers.filter((user) => user.socketId !== socketId);
+// };
 
-//function for getting users
-const getUser = (uid) => {
-  return onlineUsers.find((user) => user.uid === uid);
-};
+// //function for getting users
+// const getUser = (uid) => {
+//   return onlineUsers.find((user) => user.uid === uid);
+// };
 
-io.on("connection", (socket) => {
-  socket.on("/online", (iid) => {
-    addUser(iid, socket.id);
-    console.log(onlineUsers);
-  });
+// io.on("connection", (socket) => {
+//   socket.on("/online", (iid) => {
+//     addUser(iid, socket.id);
+//     console.log(onlineUsers);
+//   });
 
-  socket.on("message", (msg) => {
-    const foundOne = onlineUsers.find(({ uid }) => uid === msg.targetId);
-    const socket_id = foundOne?.socketId;
-    // console.log(socket_id);
-    io.to(socket_id).emit("getmessage", { msg });
-    // console.log("EMITTED");
-  });
-});
+//   socket.on("message", (msg) => {
+//     const foundOne = onlineUsers.find(({ uid }) => uid === msg.targetId);
+//     const socket_id = foundOne?.socketId;
+//     // console.log(socket_id);
+//     io.to(socket_id).emit("getmessage", { msg });
+//     // console.log("EMITTED");
+//   });
+// });
 
 const server = app.listen("5000", () => {
   console.log("Backend is Running");
 });
 
-socketSvr.listen("5000", "0.0.0.0", () => {
-  console.log("Socket Server Running");
-});
+// socketSvr.listen("5000", "0.0.0.0", () => {
+//   console.log("Socket Server Running");
+// });
 
 //MULTER RELATED CODE
 //code for file upload using multer

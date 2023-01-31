@@ -61,7 +61,7 @@ class _ChatState extends State<Chat> {
   }
 
   void connectSocket(uid) {
-    socket = IO.io("http://192.168.1.64:5000", <String, dynamic>{
+    socket = IO.io("http://192.168.1.64:3050", <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": "false"
     });

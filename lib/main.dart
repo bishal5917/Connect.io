@@ -3,6 +3,7 @@ import 'package:chat_app/Screens/FChat.dart';
 import 'package:chat_app/Screens/HomeScreen.dart';
 import 'package:chat_app/Screens/login_screen.dart';
 import 'package:chat_app/Screens/register_screen.dart';
+import 'package:chat_app/Screens/user_search_screen.dart';
 import 'package:chat_app/providers/auth.dart';
 import 'package:chat_app/providers/conversations.dart';
 import 'package:chat_app/providers/messages.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
             '/open_fchat': (context) => FChat(),
             '/goto_login': (context) => LoginScreen(),
             '/goto_register': (context) => RegisterScreen(),
+            '/goto_search': (context) => UserSearchScreen(),
           },
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:chat_app/providers/userAdons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -6,6 +7,8 @@ class SearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final uAdonProv = Provider.of<UserAdons>(context);
+
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Container(
         padding: EdgeInsets.all(3),
@@ -33,10 +36,10 @@ class SearchWidget extends StatelessWidget {
             elevation: 1,
             child: TextFormField(
               onFieldSubmitted: ((value) {
-                // if (value.isNotEmpty) {
-                //   Navigator.of(context).pushNamed("/goto_search");
-                //   prodsData.searchProds(value);
-                // }
+                if (value.isNotEmpty) {
+                  Navigator.of(context).pushNamed("/goto_search");
+                  uAdonProv.searchUsers(value);
+                }
               }),
               decoration: InputDecoration(
                 prefixIcon: InkWell(

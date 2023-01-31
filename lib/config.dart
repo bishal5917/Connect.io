@@ -13,4 +13,5 @@ class Config {
   static const String getCheckConvoUrl = "$mainUrl/api/convos/check";
   static const String createChatUrl = "$mainUrl/api/convos/create";
   static const String getTargetUrl = "$mainUrl/api/convos/getTarget";
+  static const String searchUserUrl = "$mainUrl/api/users/search";
 }

@@ -120,7 +120,9 @@ exports.getDetails = async (req, res, next) => {
 
 exports.searchUser = async (req, res, next) => {
   try {
-    const response = await User.findOne({ email: req.query.email });
+    const response = await User.find({
+      name: { $regex: req.query.uname, $options: "i" },
+    });
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json(error);

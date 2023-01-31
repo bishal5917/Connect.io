@@ -10,7 +10,7 @@ class UserAdon with ChangeNotifier {
   final String username;
   final String profPic;
   final String email;
-  final List<String> friends;
+  final List<dynamic> friends;
 
   UserAdon(
       {required this.id,
@@ -23,6 +23,7 @@ class UserAdon with ChangeNotifier {
 class UserAdons with ChangeNotifier {
   List<UserAdon> _friends = [];
   List<UserAdon> _reqs = [];
+  List<UserAdon> _sitem = [];
 
   List<UserAdon> get userFriends {
     return [..._friends];
@@ -30,6 +31,10 @@ class UserAdons with ChangeNotifier {
 
   List<UserAdon> get userRequests {
     return [..._reqs];
+  }
+
+  List<UserAdon> get sItems {
+    return [..._sitem];
   }
 
   Future<void> getUserFriends(String loggedUserId) async {
@@ -63,6 +68,23 @@ class UserAdons with ChangeNotifier {
           friends: element['friends']));
     });
     _reqs = loadedUserAdons;
+    notifyListeners();
+  }
+
+  Future<void> searchUsers(String searchKey) async {
+    String url = "${Config.searchUserUrl}?uname=$searchKey";
+    final response = await http.get(url);
+    final jsonResp = await json.decode(response.body);
+    final List<UserAdon> loadedUserAdons = [];
+    jsonResp.forEach((element) {
+      loadedUserAdons.add(UserAdon(
+          id: element['_id'],
+          username: element['username'],
+          profPic: element['profPic'],
+          email: element['email'],
+          friends: element['friends']));
+    });
+    _sitem = loadedUserAdons;
     notifyListeners();
   }
 

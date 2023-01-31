@@ -35,8 +35,7 @@ exports.getConversation = async (req, res, next) => {
         const user = await User.findById(copyarray[0]);
         const { password, ...others } = user._doc;
         element["friendname"] = others.username;
-        element["fr_avatar"]["public_id"] = others.avatar.public_id;
-        element["fr_avatar"]["url"] = others.avatar.url;
+        element["profPic"] = others.profPic;
         copyarray.push(req.params.uid);
       } catch (err) {
         res.status(500).json(err);

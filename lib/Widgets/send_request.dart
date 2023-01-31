@@ -24,7 +24,7 @@ class _SendRequestState extends State<SendRequest> {
     if (sent == false) {
       return InkWell(
           onTap: () {
-            // userAdonProv.acceptReq(widget.userId, widget.reqId);
+            userAdonProv.sendFrndReq(widget.userId, widget.reqId);
             sent = true;
           },
           child: Icon(Icons.add_circle_outline));

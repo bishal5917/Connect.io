@@ -96,4 +96,13 @@ class UserAdons with ChangeNotifier {
     });
     notifyListeners();
   }
+
+  Future<void> sendFrndReq(String userId, String sendId) async {
+    String url = Config.sendReqUrl;
+    final response = await http.put(url, body: {
+      "userId": userId,
+      "sendId": sendId,
+    });
+    notifyListeners();
+  }
 }

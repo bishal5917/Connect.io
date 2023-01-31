@@ -44,16 +44,18 @@ const sendToken = (user, statusCode, res) => {
 
 //sending friend request to another user
 exports.sendFriendRequest = async (req, res, next) => {
-  if (req.body.userId !== req.params.id) {
+  if (req.body.userId !== req.body.sendId) {
     try {
-      const userToRequest = await User.findById(req.params.id);
+      const userToRequest = await User.findById(req.body.sendId);
       const currentUser = await User.findById(req.body.userId);
       if (!userToRequest.requests.includes(req.body.userId)) {
-        if (!currentUser.friends.includes(req.params.id)) {
+        if (!currentUser.friends.includes(req.body.sendId)) {
           await userToRequest.updateOne({
             $push: { requests: req.body.userId },
           });
-          await currentUser.updateOne({ $push: { requested: req.params.id } });
+          await currentUser.updateOne({
+            $push: { requested: req.body.sendId },
+          });
           res.status(200).send("Request Sent");
         } else {
           return next(new errorResponse("Already a Friend", 403));

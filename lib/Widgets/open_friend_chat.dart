@@ -24,12 +24,12 @@ class _OpenFriendChatState extends State<OpenFriendChat> {
     final convoProv = Provider.of<Conversations>(context);
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/open_fchat', arguments: {
-          "cid": "NaN",
-          "fname": widget.frndName,
-          "fid": widget.frndId
-        });
-        // convoProv.createChat(authProv.userId, widget.frndId);
+        // Navigator.pushNamed(context, '/open_fchat', arguments: {
+        //   "cid": "NaN",
+        //   "fname": widget.frndName,
+        //   "fid": widget.frndId
+        // });
+        convoProv.createChat(authProv.userId, widget.frndId);
         // Navigator.pushNamed(context, "/");
       },
       child: Icon(Icons.message_outlined),

@@ -20,7 +20,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final nextFocus = FocusNode();
   final formKey = GlobalKey<FormState>();
-  var registerDetail = {'username': "", 'email': "", 'pass': "", 'profPic': ""};
+  var registerDetail = {
+    'username': "",
+    'email': "",
+    'pass': "",
+    'profPic': "",
+    "pid": ""
+  };
 
   void initState() {
     Future.delayed(Duration.zero).then((value) {
@@ -48,8 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     // ignore: deprecated_member_use
     var img = await imgP.getImage(source: ImageSource.gallery);
     setState(() {
-      // file = File(img.path);
-      file = img as File;
+      file = File(img.path);
       registerDetail['profPic'] = img.path;
     });
   }
@@ -258,12 +263,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     InkWell(
                       onTap: () {
                         saveForm();
-                        print(registerDetail);
-                        print(file);
+
                         if (registerDetail['username']!.isNotEmpty &&
                             registerDetail['email']!.isNotEmpty &&
                             registerDetail['pass']!.isNotEmpty &&
                             registerDetail['profPic']!.isNotEmpty) {
+                          List<String> pid = [
+                            registerDetail['email'] as String,
+                            DateTime.now().toString()
+                          ];
                           authproviders.RegisterUser(
                               registerDetail['username'] as String,
                               registerDetail['email'] as String,
@@ -273,8 +281,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           //   Navigator.of(context).pushNamed('/');
                           // }
                           if (file != null) {
-                            authproviders
-                                .uploadPic(registerDetail['profPic'] as String);
+                            authproviders.uploadPic(
+                                registerDetail['profPic'] as String,
+                                registerDetail['email'] as String);
                           }
                         }
                         // setState(() {

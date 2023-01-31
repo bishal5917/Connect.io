@@ -1,8 +1,8 @@
 import 'dart:ui';
-
 import 'package:chat_app/Screens/Message.dart';
 import 'package:chat_app/Screens/friend_list.dart';
 import 'package:chat_app/Screens/request_list.dart';
+import 'package:chat_app/Widgets/search_widget.dart';
 import 'package:chat_app/providers/auth.dart';
 import 'package:chat_app/providers/conversations.dart';
 import 'package:flutter/material.dart';
@@ -37,12 +37,8 @@ class _HomeScreenState extends State<HomeScreen>
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            "CONNECT.IO",
-            style: TextStyle(color: Colors.white),
-          ),
+          title: SearchWidget(),
           actions: <Widget>[
-            IconButton(onPressed: (() {}), icon: Icon(Icons.search)),
             IconButton(
                 onPressed: (() {
                   authP.logout();

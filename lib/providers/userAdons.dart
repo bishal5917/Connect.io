@@ -9,8 +9,15 @@ class UserAdon with ChangeNotifier {
   final String id;
   final String username;
   final String profPic;
+  final String email;
+  final List<String> friends;
 
-  UserAdon({required this.id, required this.username, required this.profPic});
+  UserAdon(
+      {required this.id,
+      required this.username,
+      required this.profPic,
+      required this.email,
+      required this.friends});
 }
 
 class UserAdons with ChangeNotifier {
@@ -34,7 +41,9 @@ class UserAdons with ChangeNotifier {
       loadedUserAdons.add(UserAdon(
           id: element['_id'],
           username: element['username'],
-          profPic: element['profPic']));
+          profPic: element['profPic'],
+          email: element['email'],
+          friends: element['friends']));
     });
     _friends = loadedUserAdons;
     notifyListeners();
@@ -49,7 +58,9 @@ class UserAdons with ChangeNotifier {
       loadedUserAdons.add(UserAdon(
           id: element['_id'],
           username: element['username'],
-          profPic: element['profPic']));
+          profPic: element['profPic'],
+          email: element['email'],
+          friends: element['friends']));
     });
     _reqs = loadedUserAdons;
     notifyListeners();

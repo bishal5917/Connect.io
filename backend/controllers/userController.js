@@ -136,16 +136,8 @@ exports.getFriends = async (req, res, next) => {
     for (const element of userfrnds) {
       try {
         const user = await User.findById(element);
-        const {
-          password,
-          requests,
-          friends,
-          email,
-          requested,
-          createdAt,
-          __v,
-          ...others
-        } = user._doc;
+        const { password, requests, requested, createdAt, __v, ...others } =
+          user._doc;
         responseList.push(others);
       } catch (err) {
         res.status(500).json(err);
@@ -166,16 +158,8 @@ exports.getRequests = async (req, res, next) => {
     for (const element of userreqs) {
       try {
         const user = await User.findById(element);
-        const {
-          password,
-          requests,
-          friends,
-          email,
-          requested,
-          createdAt,
-          __v,
-          ...others
-        } = user._doc;
+        const { password, requests, requested, createdAt, __v, ...others } =
+          user._doc;
         responseList.push(others);
       } catch (err) {
         res.status(500).json(err);

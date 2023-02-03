@@ -26,8 +26,10 @@ class Auth with ChangeNotifier {
       prefs.setString("userData", userData);
     } else if (response.statusCode == 403) {
       errorMessage = "Invalid Password !";
+      notifyListeners();
     } else if (response.statusCode == 404) {
       errorMessage = "Incorrect Email !";
+      notifyListeners();
     }
   }
 

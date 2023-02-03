@@ -16,13 +16,19 @@ class Auth with ChangeNotifier {
     const url = Config.loginUrl;
     final response =
         await http.post(url, body: {'email': email, "password": password});
-    final jsonResp = await json.decode(response.body);
-    token = await jsonResp['token'];
-    userId = await jsonResp["user"]["_id"];
-    notifyListeners();
-    final prefs = await SharedPreferences.getInstance();
-    final userData = json.encode({"token": token, "userId": userId});
-    prefs.setString("userData", userData);
+    if (response.statusCode == 200) {
+      final jsonResp = await json.decode(response.body);
+      token = await jsonResp['token'];
+      userId = await jsonResp["user"]["_id"];
+      notifyListeners();
+      final prefs = await SharedPreferences.getInstance();
+      final userData = json.encode({"token": token, "userId": userId});
+      prefs.setString("userData", userData);
+    } else if (response.statusCode == 403) {
+      errorMessage = "Invalid Password !";
+    } else if (response.statusCode == 404) {
+      errorMessage = "Incorrect Email !";
+    }
   }
 
   Future<void> RegisterUser(
@@ -55,7 +61,7 @@ class Auth with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> uploadPic(String profPic,String uemail) async {
+  Future<void> uploadPic(String profPic, String uemail) async {
     var postUri = Uri.parse(Config.fileUploadUrl);
     var request = new http.MultipartRequest("POST", postUri);
     request.fields['profPic'] = uemail;

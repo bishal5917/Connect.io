@@ -30,7 +30,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget build(BuildContext context) {
     final authproviders = Provider.of<Auth>(context);
-    var errorMessage = "";
 
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 10, 67, 108),
@@ -115,11 +114,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 InkWell(
                   onTap: () {
                     saveForm();
-                    authproviders.Login(loginDetail['email'] as String,
-                        loginDetail['pass'] as String);
-                    setState(() {
-                      errorMessage = authproviders.errorMessage;
-                    });
+                    if (loginDetail['email']!.isNotEmpty &&
+                        loginDetail['pass']!.isNotEmpty) {
+                      authproviders.Login(loginDetail['email'] as String,
+                          loginDetail['pass'] as String);
+                    }
+                    print(authproviders.errorMessage);
                   },
                   child: Container(
                     padding: EdgeInsets.all(10),
@@ -139,7 +139,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                Text(errorMessage),
                 InkWell(
                   child: Text(
                     "Forgot Password ?",

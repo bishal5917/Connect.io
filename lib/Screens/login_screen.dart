@@ -119,27 +119,28 @@ class _LoginScreenState extends State<LoginScreen> {
                         loginDetail['pass']!.isNotEmpty) {
                       authproviders.Login(loginDetail['email'] as String,
                           loginDetail['pass'] as String);
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Container(
-                              padding: EdgeInsets.all(16),
-                              height: 90,
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                  color: Colors.red),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Oops ! ",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 18),
-                                  ),
-                                  Text(errorMessage,
+                      if (errorMessage.isNotEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Container(
+                                padding: EdgeInsets.all(16),
+                                height: 90,
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    color: Colors.red),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Oops ! ",
                                       style: TextStyle(
-                                          color: Colors.white, fontSize: 16)),
-                                ],
-                              ))));
-                      print(errorMessage);
+                                          color: Colors.white, fontSize: 18),
+                                    ),
+                                    Text(errorMessage,
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 16)),
+                                  ],
+                                ))));
+                      }
                     }
                   },
                   child: Container(

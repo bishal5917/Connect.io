@@ -10,6 +10,7 @@ class Auth with ChangeNotifier {
   String token = "";
   String userId = "";
   String errorMessage = "";
+  String regErrMessage = "";
   late Timer authTimer;
 
   Future<void> Login(String email, String password) async {
@@ -42,13 +43,17 @@ class Auth with ChangeNotifier {
       "password": password,
       'profPic': profPic,
     });
-    final jsonResp = await json.decode(response.body);
-    token = await jsonResp['token'];
-    userId = await jsonResp["user"]["_id"];
+    if (response.statusCode == 200) {
+      final jsonResp = await json.decode(response.body);
+      token = await jsonResp['token'];
+      userId = await jsonResp["user"]["_id"];
+      notifyListeners();
+      final prefs = await SharedPreferences.getInstance();
+      final userData = json.encode({"token": token, "userId": userId});
+      prefs.setString("userData", userData);
+    }
+    regErrMessage = "The email is already in use !";
     notifyListeners();
-    final prefs = await SharedPreferences.getInstance();
-    final userData = json.encode({"token": token, "userId": userId});
-    prefs.setString("userData", userData);
   }
 
   Future<void> autoLogin() async {

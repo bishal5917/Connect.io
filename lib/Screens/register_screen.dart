@@ -315,6 +315,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 registerDetail['profPic'] as String,
                                 registerDetail['email'] as String);
                           }
+                          if (authproviders.regErrMessage.isNotEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Container(
+                                    padding: EdgeInsets.all(16),
+                                    height: 90,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20)),
+                                        color: Colors.red),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "Oops , Registration Error ! ",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18),
+                                        ),
+                                        Text(authproviders.regErrMessage,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16)),
+                                      ],
+                                    ))));
+                          }
                         }
                         // setState(() {
                         //   errorMessage = authproviders.errorMessage;

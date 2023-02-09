@@ -1,4 +1,5 @@
 import 'package:chat_app/providers/auth.dart';
+import 'package:chat_app/providers/userAdons.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +63,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     final authproviders = Provider.of<Auth>(context);
+    final userAdonProv = Provider.of<UserAdons>(context);
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 10, 67, 108),
       body: Container(
@@ -145,7 +147,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   padding: EdgeInsets.only(bottom: 30),
                   child: TextFormField(
                     onChanged: ((value) {
-                      
+                      userAdonProv.checkUsernameAvailability(value);
+                      if (userAdonProv.usernamestatusCde == 403) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Container(
+                                padding: EdgeInsets.all(16),
+                                height: 90,
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    color: Colors.red),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Oops ! ",
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 18),
+                                    ),
+                                    Text("Username Already Taken !",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 16)),
+                                  ],
+                                ))));
+                      }
                     }),
                     onSaved: (val) {
                       registerDetail['username'] = val as String;

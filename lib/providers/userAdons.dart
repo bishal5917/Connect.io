@@ -21,6 +21,8 @@ class UserAdon with ChangeNotifier {
 }
 
 class UserAdons with ChangeNotifier {
+  String isUnameAvailable = "";
+  int usernamestatusCde = 0;
   List<UserAdon> _friends = [];
   List<UserAdon> _reqs = [];
   List<UserAdon> _sitem = [];
@@ -103,6 +105,19 @@ class UserAdons with ChangeNotifier {
       "userId": userId,
       "sendId": sendId,
     });
+    notifyListeners();
+  }
+
+  Future<void> checkUsernameAvailability(String uvalue) async {
+    String url = "${Config.checkUsernameAvail}/$uvalue";
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      usernamestatusCde = 200;
+      isUnameAvailable = "";
+    } else if (response.statusCode == 403) {
+      isUnameAvailable = "Username is already taken !";
+      usernamestatusCde = 403;
+    }
     notifyListeners();
   }
 }

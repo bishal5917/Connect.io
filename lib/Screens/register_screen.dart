@@ -144,12 +144,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 30),
                   child: TextFormField(
+                    onChanged: ((value) {
+                      
+                    }),
                     onSaved: (val) {
                       registerDetail['username'] = val as String;
                     },
                     validator: ((value) {
                       if (value!.isEmpty) {
-                        return "Please choose a username!";
+                        return "Please choose a username";
+                      }
+                      if (value.length < 4) {
+                        return "Username should contain at least 4 characters";
                       }
                       return null;
                     }),

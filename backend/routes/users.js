@@ -9,6 +9,7 @@ const {
   searchUser,
   getFriends,
   getRequests,
+  checkUserName,
 } = require("../controllers/userController");
 const { protect } = require("../middleware/auth");
 const User = require("../models/User");
@@ -33,6 +34,7 @@ router.route("/users/getmydetails/:userId").get(protect, getMyDetails);
 router.route("/users/search").get(searchUser);
 router.route("/users/getFriendList/:uid").get(getFriends);
 router.route("/users/getRequestList/:uid").get(getRequests);
+router.route("/users/unameCheck/:uname").get(checkUserName);
 
 //api for sending email
 router.post("/sendemail", async (req, res) => {

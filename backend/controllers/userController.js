@@ -11,6 +11,22 @@ exports.regUser = async (req, res, next) => {
   }
 };
 
+exports.checkUserName = async (req, res, next) => {
+  const enteredUsername = req.params.uname;
+  try {
+    if (enteredUsername.length < 4) {
+      res.status(500).json("Must be at least 4 characters");
+    }
+    const resp = await User.findOne({ username: enteredUsername });
+    if (resp != null) {
+      res.status(403).json("Username Already in Use ! ");
+    }
+    res.status(200).json("Username available");
+  } catch (error) {
+    return next(error);
+  }
+};
+
 exports.logUser = async (req, res, next) => {
   const { email, password } = req.body;
 

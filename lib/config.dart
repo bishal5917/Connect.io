@@ -1,5 +1,5 @@
 class Config {
-  static const String mainUrl = "http://192.168.1.64:5000";
+  static const String mainUrl = "http://192.168.1.65:5000";
   static const String loginUrl = "$mainUrl/api/users/login";
   static const String fileUploadUrl = "$mainUrl/api/upload";
   static const String registerUrl = "$mainUrl/api/users/register";
@@ -15,4 +15,5 @@ class Config {
   static const String createChatUrl = "$mainUrl/api/convos/create";
   static const String getTargetUrl = "$mainUrl/api/convos/getTarget";
   static const String searchUserUrl = "$mainUrl/api/users/search";
+  static const String checkUsernameAvail = "$mainUrl/api/users/unameCheck";
 }
